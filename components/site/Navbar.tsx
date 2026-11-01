@@ -68,7 +68,14 @@ export default function Navbar({ index }: { index: SpotItem[] }) {
   }, [open]);
 
   // light-on-photo nav while sitting over the full-bleed cinematic hero
-  const overlay = top && pathname === "/" && (settings.hero.layout ?? "cinematic") === "cinematic";
+  const [heroDark, setHeroDark] = useState(false);
+  useEffect(() => {
+    const check = () => setHeroDark(!!document.querySelector("[data-nav-overlay]"));
+    check();
+    const id = setTimeout(check, 120);
+    return () => clearTimeout(id);
+  }, [pathname]);
+  const overlay = top && heroDark;
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (

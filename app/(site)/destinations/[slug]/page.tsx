@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDB } from "@/lib/db";
 import PageHero from "@/components/site/PageHero";
-import TourCard from "@/components/site/TourCard";
+import HoverList from "@/components/site/HoverList";
+import { ManifestoFloat } from "@/components/site/home/Signature";
 import Img from "@/components/site/Img";
-import { Reveal } from "@/components/site/Reveal";
 import { money } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -26,26 +26,24 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
   const b = db.settings.brand;
   return (
     <>
-      <PageHero eyebrow={`${d.country} · ${d.region}`} title={d.name} sub={d.tagline} image={d.image} />
-      <section className="mx-auto grid max-w-[1400px] gap-12 px-5 py-20 md:grid-cols-[1.3fr_1fr] md:px-10 md:py-28">
-        <Reveal>
-          <p className="text-[7vw] font-medium leading-[1.15] tracking-[-0.035em] md:text-[2.6vw]">{d.description}</p>
-        </Reveal>
-        <Reveal delay={0.1} className="grid grid-cols-2 content-start gap-3">
-          {[
-            ["Best time", d.bestTime],
-            ["From", money(d.startingPrice, b.currency, b.locale)],
-            ["Journeys", String(tours.length)],
-            ["Region", d.region],
-          ].map(([l, v]) => (
-            <div key={l} className="r-lg bg-card p-5">
-              <p className="eyebrow text-mute">{l}</p>
-              <p className="mt-2 text-xl font-medium tracking-tight">{v}</p>
-            </div>
-          ))}
-          <Link href={`/contact?destination=${encodeURIComponent(d.name)}`} className="col-span-2 rounded-md bg-ink py-4 text-center text-sm text-paper transition hover:bg-accent">Plan a trip to {d.name}</Link>
-        </Reveal>
-      </section>
+      <PageHero
+        eyebrow={`${d.country} · ${d.region}`}
+        title={d.name}
+        sub={d.tagline}
+        image={d.image}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Destinations", href: "/destinations" }, { label: d.name }]}
+        meta={[
+          { label: "Best time", value: d.bestTime },
+          { label: "From", value: money(d.startingPrice, b.currency, b.locale) },
+          { label: "Journeys", value: String(tours.length) },
+        ]}
+      />
+      <ManifestoFloat
+        eyebrow={`Why ${d.name}`}
+        text={d.description}
+        images={[...d.gallery, ...others.map((o) => o.image), d.image].slice(0, 4)}
+        cta={{ label: `Plan a trip to ${d.name}`, href: `/contact?destination=${encodeURIComponent(d.name)}` }}
+      />
       {d.gallery.length > 1 && (
         <section className="no-scrollbar flex snap-x gap-3 overflow-x-auto px-5 md:px-10">
           {d.gallery.map((g, k) => (
@@ -58,7 +56,21 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10">
         <h2 className="display text-5xl md:text-7xl">Journeys in <span className="hl text-accent">{d.name}</span></h2>
         {tours.length ? (
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{tours.map((t) => <TourCard key={t.id} tour={t} />)}</div>
+          <div className="mt-10">
+            <HoverList
+              template="56px minmax(0,2fr) 120px 100px 150px 48px"
+              head={["No.", "Journey", "Style", "Length", "From"]}
+              rows={tours.map((t) => ({
+                key: t.id,
+                href: `/tours/${t.slug}`,
+                image: t.image,
+                title: t.title,
+                sub: `${t.days} days · ${money(t.price, b.currency, b.locale)}`,
+                cells: [t.category, `${t.days} days`, money(t.price, b.currency, b.locale)],
+                badge: `★ ${t.rating.toFixed(1)}`,
+              }))}
+            />
+          </div>
         ) : (
           <p className="mt-6 text-mute">Every {d.name} trip we plan is bespoke. <Link className="link-u text-ink" href="/contact">Tell us your dates →</Link></p>
         )}

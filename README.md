@@ -47,6 +47,9 @@ Text and button colours adjust automatically for dark or light backgrounds and a
   - **Review wall**: two rows of review cards moving in opposite directions, plus a rating summary.
   - **Journal**: a bento layout with one large story and smaller ones beside it.
   - **Closing call-to-action**: an image that grows as you scroll in.
+- **Page headers**: pages with a photo get a cinematic full-screen header — a slice-by-slice image reveal, breadcrumbs, a word-by-word title, a frosted bar of key facts, and a shrink-to-card effect on scroll. Other pages get a typographic header with two drifting columns of photos.
+- **Destinations "Atlas"**: a dark panel listing every destination name in large type. Hovering a name fills the whole panel with that place's photo and shows a details card. There is also a Grid view.
+- **Journeys**: switch between Cards and Index views. In Index view, a photo of the journey under the cursor follows the pointer.
 - **Journeys**: filtering by category, length, departure month and price, plus search and sort.
 - **Journey detail page**: photo gallery with a full-screen viewer, day-by-day itinerary, what's included and excluded, reviews, related journeys, and a **3-step booking widget** that creates bookings in the CRM.
 - **Other pages**:

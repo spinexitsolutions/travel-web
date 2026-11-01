@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { getDB } from "@/lib/db";
 import PageHero from "@/components/site/PageHero";
 import InquiryForm from "@/components/site/InquiryForm";
+import LiveStudio from "@/components/site/LiveStudio";
+import { IMG } from "@/lib/seed";
 import { FaqList } from "@/components/site/home/Sections";
 
 export const dynamic = "force-dynamic";
@@ -13,10 +15,18 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   const b = db.settings.brand;
   return (
     <>
-      <PageHero eyebrow="Plan a trip" title="Let’s compose" accent="something rare." sub="Three short steps. A real person replies within a few hours — usually much sooner." />
+      <PageHero
+        eyebrow="Plan a trip"
+        title="Let’s compose"
+        accent="something rare."
+        sub="Three short steps. A real person replies within a few hours — usually much sooner."
+        images={[IMG.airport, IMG.flatlay, IMG.santorini, IMG.kyoto, IMG.tent, IMG.infinityPool, IMG.hikers, IMG.jaipur]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
+        meta={[{ label: "Reply time", value: "< 2 hrs" }, { label: "Planners", value: "12" }, { label: "Cost to plan", value: "Free" }]}
+      />
       <section className="mx-auto grid max-w-[1400px] gap-10 px-5 pb-24 md:grid-cols-[1.5fr_1fr] md:px-10">
         <InquiryForm destinations={db.destinations.map((d) => d.name)} initialDestination={sp.destination ?? ""} />
-        <aside className="space-y-3">
+        <aside className="space-y-3 md:sticky md:top-24 md:self-start">
           {[
             { l: "Write", v: b.email, h: `mailto:${b.email}` },
             { l: "Call", v: b.phone, h: `tel:${b.phone.replace(/\s/g, "")}` },
@@ -28,11 +38,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               <p className="mt-2 text-xl font-medium tracking-tight transition-colors group-hover:text-accent">{c.v}</p>
             </a>
           ))}
-          <div className="r-lg bg-night p-6 text-paper">
-            <p className="eyebrow text-paper/50">Studio hours</p>
-            <p className="mt-2">Mon–Sat · 10:00–19:00 IST</p>
-            <p className="mt-1 text-sm text-paper/60">Travelling clients: 24/7 concierge.</p>
-          </div>
+          <LiveStudio avatars={[IMG.p3, IMG.p4, IMG.p5, IMG.p2]} />
         </aside>
       </section>
       <section className="mx-auto max-w-[1000px] px-5 pb-28 md:px-10">

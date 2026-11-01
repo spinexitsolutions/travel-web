@@ -8,14 +8,14 @@ import { useSite } from "./SiteContext";
 import { ArrowUpRight } from "./Icons";
 import { cn } from "@/lib/utils";
 
-export default function DestinationGrid({ items }: { items: Destination[] }) {
+export default function DestinationGrid({ items, hideFilter }: { items: Destination[]; hideFilter?: boolean }) {
   const { money } = useSite();
   const regions = useMemo(() => ["All", ...Array.from(new Set(items.map((d) => d.region)))], [items]);
   const [r, setR] = useState("All");
   const shown = items.filter((d) => r === "All" || d.region === r);
   return (
     <section className="mx-auto max-w-[1400px] px-5 pb-28 md:px-10">
-      <div className="no-scrollbar flex gap-1 overflow-x-auto">
+      <div className={cn("no-scrollbar flex gap-1 overflow-x-auto", hideFilter && "hidden")}>
         {regions.map((x) => (
           <button key={x} onClick={() => setR(x)} className={cn("relative shrink-0 rounded-full px-4 py-2 text-sm", r === x ? "text-paper" : "text-ink/70 hover:text-ink")}>
             {r === x && <motion.span layoutId="reg" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}

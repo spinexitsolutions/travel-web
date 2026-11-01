@@ -86,7 +86,7 @@ function Word({ children, progress, range }: { children: string; progress: Motio
   return <motion.span style={{ opacity, y }} className="inline-block">{children}&nbsp;</motion.span>;
 }
 
-export function ManifestoFloat({ text, images }: { text: string; images: string[] }) {
+export function ManifestoFloat({ text, images, eyebrow = "The studio", cta = { label: "Meet the planners", href: "/about" } }: { text: string; images: string[]; eyebrow?: string; cta?: { label: string; href: string } }) {
   const ref = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -113,15 +113,15 @@ export function ManifestoFloat({ text, images }: { text: string; images: string[
         </motion.div>
       ))}
       <div className="relative z-10 mx-auto max-w-[1100px] px-5 text-center md:px-10">
-        <Reveal><p className="eyebrow text-mute">The studio</p></Reveal>
+        <Reveal><p className="eyebrow text-mute">{eyebrow}</p></Reveal>
         <div ref={textRef} className="mt-8 text-[8vw] font-medium leading-[1.1] tracking-[-0.04em] md:text-[3.6vw] xl:text-[3.4rem]">
           {words.map((w, k) => (
             <Word key={k} progress={fill} range={[k / words.length, (k + 1) / words.length]}>{w}</Word>
           ))}
         </div>
         <Reveal delay={0.2}>
-          <Link href="/about" className="group mt-12 inline-flex items-center gap-3 rounded-full border border-ink/15 bg-paper/70 py-2 pl-5 pr-2 text-sm font-medium backdrop-blur transition hover:border-accent">
-            Meet the planners
+          <Link href={cta.href} className="group mt-12 inline-flex items-center gap-3 rounded-full border border-ink/15 bg-paper/70 py-2 pl-5 pr-2 text-sm font-medium backdrop-blur transition hover:border-accent">
+            {cta.label}
             <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-on-accent transition-transform duration-500 group-hover:rotate-45"><ArrowUpRight /></span>
           </Link>
         </Reveal>
@@ -255,7 +255,7 @@ export function JourneyIndex({ tours, destinations }: { tours: Tour[]; destinati
 /* ════════════════════════════════════════════════════════════════════
    4. Stacked experience cards
    ════════════════════════════════════════════════════════════════════ */
-function StackCard({ e, k, n, progress }: { e: Experience; k: number; n: number; progress: MotionValue<number> }) {
+function StackCard({ e, k, n, progress, hideCta }: { e: Experience; k: number; n: number; progress: MotionValue<number>; hideCta?: boolean }) {
   const target = 1 - (n - k) * 0.045;
   const scale = useTransform(progress, [k / n, 1], [1, target]);
   const dim = useTransform(progress, [k / n, Math.min(1, (k + 1) / n)], [0, k === n - 1 ? 0 : 0.45]);
@@ -269,7 +269,7 @@ function StackCard({ e, k, n, progress }: { e: Experience; k: number; n: number;
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/10" />
         <motion.div style={{ opacity: dim }} className="absolute inset-0 bg-black" />
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 font-mono text-[11px] uppercase tracking-wider text-white/75 md:p-8">
-          <span>Ways to travel</span>
+          <span>{e.count}</span>
           <span>{String(k + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</span>
         </div>
         <div className="absolute inset-x-0 bottom-0 grid items-end gap-6 p-5 md:grid-cols-[1fr_auto] md:p-10">
@@ -277,29 +277,29 @@ function StackCard({ e, k, n, progress }: { e: Experience; k: number; n: number;
             <p className="text-sm text-white/75 md:text-base">{e.subtitle}</p>
             <h3 className="display mt-2 text-[16vw] text-white md:text-[9vw]">{e.title}</h3>
           </div>
-          <Link
+          {hideCta ? <span className="font-mono text-xs uppercase tracking-wider text-white/70">{e.count}</span> : <Link
             href={`/tours?category=${encodeURIComponent(e.title === "Honeymoons" ? "Honeymoon" : e.title)}`}
             className="group flex w-fit items-center gap-3 rounded-full bg-white py-2 pl-5 pr-2 text-sm font-semibold text-black transition hover:bg-accent hover:text-on-accent"
           >
             {e.count}
             <span className="grid h-10 w-10 place-items-center rounded-full bg-black text-white transition-transform duration-500 group-hover:rotate-45"><ArrowUpRight /></span>
-          </Link>
+          </Link>}
         </div>
       </motion.div>
     </div>
   );
 }
 
-export function StackedExperiences({ items }: { items: Experience[] }) {
+export function StackedExperiences({ items, heading = { eyebrow: "Ways to travel", title: "Find your", accent: "kind of trip." }, hideCta }: { items: Experience[]; heading?: { eyebrow: string; title: string; accent: string }; hideCta?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   return (
     <section>
       <div className="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
-        <SectionHead eyebrow="Ways to travel" title="Find your" accent="kind of trip." />
+        <SectionHead eyebrow={heading.eyebrow} title={heading.title} accent={heading.accent} />
       </div>
       <div ref={ref} className="relative">
-        {items.map((e, k) => <StackCard key={e.id} e={e} k={k} n={items.length} progress={scrollYProgress} />)}
+        {items.map((e, k) => <StackCard key={e.id} e={e} k={k} n={items.length} progress={scrollYProgress} hideCta={hideCta} />)}
       </div>
     </section>
   );

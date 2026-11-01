@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import type { Destination, Testimonial, Tour } from "@/lib/types";
 import { useSite } from "./SiteContext";
 import Img from "./Img";
 import TourCard from "./TourCard";
+import Shutter from "./Shutter";
 import { Reveal, SplitReveal } from "./Reveal";
 import { ArrowRight, Calendar, Check, Clock, Heart, Mountain, Pin, Plus, Star, Users, Whatsapp, X } from "./Icons";
 import { cn, fmtDate } from "@/lib/utils";
@@ -18,58 +19,85 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
   const [openDay, setOpenDay] = useState<number>(0);
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const heroRadius = useTransform(scrollYProgress, [0, 0.5], [0, 36]);
+  const heroFade = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const gallery = tour.gallery.length ? tour.gallery : [tour.image];
+  const [slide, setSlide] = useState(0);
+  const [prevSlide, setPrevSlide] = useState<number | null>(null);
+  const goSlide = (n: number) => {
+    if (n === slide) return;
+    setPrevSlide(slide);
+    setSlide((n + gallery.length) % gallery.length);
+  };
+  useEffect(() => {
+    if (!introDone || gallery.length < 2) return;
+    const id = setTimeout(() => goSlide(slide + 1), 6000);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slide, introDone, gallery.length]);
   const wished = wishlist.includes(tour.slug);
 
   return (
     <>
-      {/* Hero */}
-      <section ref={ref} className="px-3 pt-[96px] md:px-6 md:pt-[104px]">
-        <div className="r-xl relative min-h-[86svh] overflow-hidden bg-night text-white">
+      {/* Hero — gallery shutter slideshow */}
+      <section ref={ref} data-nav-overlay className="relative h-[96svh] min-h-[640px] bg-paper">
+        <motion.div style={{ scale: heroScale, borderRadius: heroRadius }} className="relative h-full origin-top overflow-hidden bg-night text-white">
           <motion.div style={{ y }} className="absolute inset-0">
-            <Img src={tour.image} w={2200} alt={tour.title} priority className="h-full w-full object-cover" />
+            <Shutter src={gallery[slide]} prev={prevSlide !== null ? gallery[prevSlide] : null} play={introDone} alt={tour.title} priority />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
-          <div className="relative mx-auto flex min-h-[86svh] max-w-[1400px] flex-col justify-end px-5 pb-24 pt-32 md:px-10 md:pb-12">
-            <div className="flex flex-wrap items-center gap-2 text-xs">
-              <Link href="/tours" className="glass rounded-full px-3 py-1.5 text-ink">← All journeys</Link>
-              <span className="rounded-md bg-accent px-3 py-1.5">{tour.category}</span>
-              {destination && <Link href={`/destinations/${destination.slug}`} className="rounded-md border border-white/30 px-3 py-1.5 hover:bg-white/10"><Pin className="mr-1 inline" />{destination.name}, {destination.country}</Link>}
-            </div>
-            <h1 className="display mt-5 max-w-[16ch] text-[12vw] md:text-[7vw] xl:text-[6.5rem]">
-              <SplitReveal text={tour.title} play={introDone} />
-            </h1>
-            <div className="mt-8 grid items-end gap-6 md:grid-cols-[1fr_auto]">
-              <p className="max-w-xl text-white/80 md:text-lg">{tour.summary}</p>
-              <div className="flex gap-2">
-                {gallery.slice(0, 4).map((g, k) => (
-                  <button key={k} onClick={() => setLight(k)} className="h-16 w-16 overflow-hidden rounded-2xl ring-1 ring-white/30 transition hover:scale-105 md:h-20 md:w-20" aria-label={`Open photo ${k + 1}`}>
-                    <Img src={g} w={200} alt="" className="h-full w-full object-cover" />
-                  </button>
-                ))}
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,.8)_0%,rgba(0,0,0,.15)_50%,rgba(0,0,0,.4)_100%)]" />
+          <motion.div style={{ opacity: heroFade }} className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col px-5 pb-8 pt-[110px] md:px-10 md:pb-10 md:pt-[124px]">
+            <nav className="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-white/70">
+              <Link href="/" className="link-u">Home</Link><span className="opacity-50">/</span>
+              <Link href="/tours" className="link-u">Journeys</Link><span className="opacity-50">/</span>
+              <span className="text-white">{tour.title}</span>
+            </nav>
+            <div className="mt-auto">
+              <div className="flex flex-wrap items-center gap-2 text-xs">
+                <span className="rounded-md bg-accent px-3 py-1.5 font-semibold text-on-accent">{tour.category}</span>
+                {destination && <Link href={`/destinations/${destination.slug}`} className="rounded-md border border-white/30 px-3 py-1.5 backdrop-blur hover:bg-white/10"><Pin className="mr-1 inline" />{destination.name}, {destination.country}</Link>}
+                {tour.oldPrice && <span className="rounded-md bg-white px-3 py-1.5 font-semibold text-black">Save {Math.round((1 - tour.price / tour.oldPrice) * 100)}%</span>}
               </div>
+              <h1 className="display mt-5 max-w-[15ch] text-[12vw] text-white md:text-[min(7vw,7.5rem)]">
+                <SplitReveal text={tour.title} play={introDone} />
+              </h1>
+              <div className="mt-6 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
+                <p className="max-w-xl text-white/80 md:text-lg">{tour.summary}</p>
+                <div className="flex items-center gap-2">
+                  {gallery.slice(0, 5).map((g, k) => (
+                    <button
+                      key={k}
+                      onClick={() => goSlide(k)}
+                      onDoubleClick={() => setLight(k)}
+                      className={cn("relative h-14 w-14 overflow-hidden rounded-xl ring-2 transition md:h-16 md:w-16", k === slide ? "ring-accent" : "ring-white/20 opacity-70 hover:opacity-100")}
+                      aria-label={`Show photo ${k + 1}`}
+                    >
+                      <Img src={g} w={200} alt="" className="h-full w-full object-cover" />
+                    </button>
+                  ))}
+                  <button onClick={() => setLight(slide)} className="ml-1 h-14 rounded-xl border border-white/25 px-4 text-xs font-semibold backdrop-blur transition hover:bg-white hover:text-black md:h-16">View all</button>
+                </div>
+              </div>
+              {/* glass fact bar */}
+              <dl className="mt-6 grid grid-cols-2 overflow-hidden rounded-2xl border border-white/15 bg-black/25 backdrop-blur-xl sm:grid-cols-3 lg:grid-cols-5">
+                {[
+                  { i: <Clock />, l: "Duration", v: `${tour.days} days` },
+                  { i: <Users />, l: "Group", v: tour.groupSize },
+                  { i: <Mountain />, l: "Pace", v: tour.difficulty },
+                  { i: <Star />, l: "Rating", v: `${tour.rating.toFixed(1)} · ${tour.reviews}` },
+                  { i: <Calendar />, l: "From", v: money(tour.price) },
+                ].map((f) => (
+                  <div key={f.l} className="border-b border-r border-white/10 px-4 py-3 last:border-r-0 md:px-5 md:py-4">
+                    <dt className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-white/55"><span className="text-accent">{f.i}</span>{f.l}</dt>
+                    <dd className="mt-1 truncate text-[15px] font-semibold md:text-lg">{f.v}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Facts */}
-      <section className="mx-auto max-w-[1400px] px-5 md:px-10">
-        <div className="grid grid-cols-2 border-b border-line md:grid-cols-5">
-          {[
-            { i: <Clock />, l: "Duration", v: `${tour.days} days` },
-            { i: <Users />, l: "Group", v: tour.groupSize },
-            { i: <Mountain />, l: "Pace", v: tour.difficulty },
-            { i: <Star />, l: "Rating", v: `${tour.rating.toFixed(1)} · ${tour.reviews} reviews` },
-            { i: <Calendar />, l: "Best time", v: destination?.bestTime ?? "Year-round" },
-          ].map((f, k) => (
-            <Reveal key={f.l} delay={k * 0.05} className="border-line py-6 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0">
-              <p className="flex items-center gap-2 text-xs text-mute"><span className="text-accent">{f.i}</span>{f.l}</p>
-              <p className="mt-2 text-lg font-medium tracking-tight">{f.v}</p>
-            </Reveal>
-          ))}
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       <section className="mx-auto grid max-w-[1400px] gap-14 px-5 py-16 md:px-10 md:py-24 lg:grid-cols-[1fr_400px]">
@@ -87,36 +115,33 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
             </ul>
           </div>
 
-          {/* Itinerary */}
+          {/* Itinerary — sticky photo that follows the day you're reading */}
           <div>
             <div className="flex items-end justify-between">
               <h2 className="display text-5xl md:text-6xl">Day by <span className="hl text-accent">day</span></h2>
-              <span className="text-sm text-mute">{tour.itinerary.length} days</span>
+              <span className="font-mono text-xs uppercase text-mute">{tour.itinerary.length} days</span>
             </div>
-            <ol className="relative mt-8 border-l border-line pl-6 md:pl-10">
-              {tour.itinerary.map((d, k) => {
-                const open = openDay === k;
-                return (
-                  <li key={k} className="relative pb-2">
-                    <span className={cn("absolute -left-[31px] top-5 grid h-3 w-3 place-items-center rounded-full ring-4 ring-paper transition-colors md:-left-[47px]", open ? "bg-accent" : "bg-ink/25")} />
-                    <button onClick={() => setOpenDay(open ? -1 : k)} className="flex w-full items-center justify-between gap-4 py-4 text-left">
-                      <span>
-                        <span className="font-mono text-xs text-mute">Day {String(k + 1).padStart(2, "0")}</span>
-                        <span className="mt-1 block text-xl font-medium tracking-tight md:text-2xl">{d.title}</span>
-                      </span>
-                      <motion.span animate={{ rotate: open ? 45 : 0 }} className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line"><Plus /></motion.span>
-                    </button>
-                    <AnimatePresence initial={false}>
-                      {open && (
-                        <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.45, ease }} className="max-w-xl overflow-hidden pb-4 text-mute">
-                          {d.description}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </li>
-                );
-              })}
-            </ol>
+            <div className="mt-10 grid gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]">
+              <div className="hidden md:block">
+                <div className="sticky top-28 aspect-[4/5] overflow-hidden r-xl bg-night">
+                  <AnimatePresence initial={false}>
+                    <motion.div key={openDay} className="absolute inset-0" initial={{ clipPath: "inset(100% 0 0 0)" }} animate={{ clipPath: "inset(0% 0 0 0)" }} exit={{ opacity: 0 }} transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}>
+                      <Img src={gallery[Math.max(0, openDay) % gallery.length]} w={900} alt="" className="h-full w-full object-cover" />
+                    </motion.div>
+                  </AnimatePresence>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-5 text-white">
+                    <p className="font-mono text-[11px] uppercase tracking-wider text-white/70">Day {String(Math.max(0, openDay) + 1).padStart(2, "0")}</p>
+                    <p className="mt-1 text-2xl font-semibold tracking-tight">{tour.itinerary[Math.max(0, openDay)]?.title}</p>
+                  </div>
+                </div>
+              </div>
+              <ol className="relative border-l border-line pl-6 md:pl-8">
+                <motion.span className="absolute -left-px top-0 w-[2px] origin-top bg-accent" style={{ height: `${((Math.max(0, openDay) + 1) / tour.itinerary.length) * 100}%`, transition: "height .6s cubic-bezier(.22,1,.36,1)" }} />
+                {tour.itinerary.map((d, k) => (
+                  <ItineraryDay key={k} k={k} title={d.title} description={d.description} active={openDay === k} onActive={() => setOpenDay(k)} image={gallery[k % gallery.length]} />
+                ))}
+              </ol>
+            </div>
           </div>
 
           {/* Gallery grid */}
@@ -292,5 +317,24 @@ function BookingCard({ tour }: { tour: Tour }) {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function ItineraryDay({ k, title, description, active, onActive, image }: { k: number; title: string; description: string; active: boolean; onActive: () => void; image: string }) {
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, { margin: "-45% 0px -45% 0px" });
+  useEffect(() => { if (inView) onActive(); }, [inView, onActive]);
+  return (
+    <li ref={ref} className="relative pb-10 last:pb-0">
+      <span className={cn("absolute -left-[31px] top-1.5 h-3 w-3 rounded-full ring-4 ring-paper transition-colors duration-500 md:-left-[39px]", active ? "bg-accent" : "bg-ink/20")} />
+      <motion.div animate={{ opacity: active ? 1 : 0.4 }} transition={{ duration: 0.5 }}>
+        <p className="font-mono text-xs uppercase tracking-wider text-mute">Day {String(k + 1).padStart(2, "0")}</p>
+        <p className="mt-1 text-2xl font-semibold tracking-[-0.03em] md:text-3xl">{title}</p>
+        <p className="mt-3 max-w-lg leading-relaxed text-mute">{description}</p>
+        <div className="mt-4 aspect-[16/9] overflow-hidden r-lg md:hidden">
+          <Img src={image} w={700} alt="" className="h-full w-full object-cover" />
+        </div>
+      </motion.div>
+    </li>
   );
 }

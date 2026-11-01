@@ -10,7 +10,7 @@ export default async function WishlistPage() {
   const tours = (await getDB()).tours.filter((t) => t.published);
   return (
     <>
-      <PageHero eyebrow="Saved for later" title="Your" accent="wishlist." />
+      <PageHero eyebrow="Saved for later" title="Your" accent="wishlist." crumbs={[{ label: "Home", href: "/" }, { label: "Wishlist" }]} />
       <WishlistGrid tours={tours} />
     </>
   );

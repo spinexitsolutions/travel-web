@@ -76,7 +76,7 @@ export default function HeroCinematic({ slides, destinations }: { slides: CineSl
   const deep = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
 
   return (
-    <section ref={ref} className="relative h-[100svh] min-h-[640px] bg-paper md:min-h-[720px]">
+    <section ref={ref} data-nav-overlay className="relative h-[100svh] min-h-[640px] bg-paper md:min-h-[720px]">
       <motion.div
         style={{ scale, borderRadius: radius }}
         onPointerMove={onMove}

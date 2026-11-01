@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState } from "react";
 import type { Tour } from "@/lib/types";
 import TourCard from "./TourCard";
+import HoverList from "./HoverList";
 import { useSite } from "./SiteContext";
 import { Search, X } from "./Icons";
 import { cn } from "@/lib/utils";
@@ -35,6 +36,7 @@ export default function ToursExplorer({
   const [price, setPrice] = useState(maxPrice);
   const [sort, setSort] = useState(SORTS[0]);
   const [panel, setPanel] = useState(false);
+  const [view, setView] = useState<"cards" | "index">("cards");
 
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -137,13 +139,42 @@ export default function ToursExplorer({
         <span className="text-mute">{results.length} journeys</span>
         {active.map((a) => <span key={a} className="rounded-full bg-black/5 px-3 py-1">{a}</span>)}
         {active.length > 0 && <button onClick={reset} className="link-u ml-1 text-accent">Clear all</button>}
+        <div className="ml-auto flex rounded-full border border-line p-1">
+          {(["cards", "index"] as const).map((v) => (
+            <button key={v} onClick={() => setView(v)} className={cn("relative rounded-full px-4 py-1.5 text-xs font-semibold capitalize", view === v ? "text-paper" : "text-ink/60")}>
+              {view === v && <motion.span layoutId="tv" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />}
+              <span className="relative">{v}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      <motion.div layout className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout">
-          {results.map((t, k) => <TourCard key={t.id} tour={t} priority={k < 3} />)}
-        </AnimatePresence>
-      </motion.div>
+      {view === "cards" ? (
+        <motion.div layout className="mt-6 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {results.map((t, k) => <TourCard key={t.id} tour={t} priority={k < 3} />)}
+          </AnimatePresence>
+        </motion.div>
+      ) : (
+        <div className="mt-8">
+          <HoverList
+            template="56px minmax(0,2fr) minmax(0,1fr) 110px 100px 150px 48px"
+            head={["No.", "Journey", "Destination", "Style", "Length", "From"]}
+            rows={results.map((t) => {
+              const d = destinations.find((x) => x.slug === t.destinationSlug);
+              return {
+                key: t.id,
+                href: `/tours/${t.slug}`,
+                image: t.image,
+                title: t.title,
+                sub: `${d?.name ?? ""} · ${t.days} days · ${money(t.price)}`,
+                cells: [d ? `${d.name}, ${d.country}` : "—", t.category, `${t.days} days`, money(t.price)],
+                badge: `★ ${t.rating.toFixed(1)} · ${t.reviews} reviews`,
+              };
+            })}
+          />
+        </div>
+      )}
       {results.length === 0 && (
         <div className="r-xl mt-6 border border-dashed border-line px-6 py-20 text-center">
           <p className="hl text-4xl">Nothing quite fits — yet.</p>
