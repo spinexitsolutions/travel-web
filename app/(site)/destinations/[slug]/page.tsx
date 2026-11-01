@@ -43,7 +43,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
               <p className="mt-2 text-xl font-medium tracking-tight">{v}</p>
             </div>
           ))}
-          <Link href={`/contact?destination=${encodeURIComponent(d.name)}`} className="col-span-2 rounded-full bg-ink py-4 text-center text-sm text-paper transition hover:bg-accent">Plan a trip to {d.name}</Link>
+          <Link href={`/contact?destination=${encodeURIComponent(d.name)}`} className="col-span-2 rounded-md bg-ink py-4 text-center text-sm text-paper transition hover:bg-accent">Plan a trip to {d.name}</Link>
         </Reveal>
       </section>
       {d.gallery.length > 1 && (
@@ -56,7 +56,7 @@ export default async function DestinationPage({ params }: { params: Promise<{ sl
         </section>
       )}
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10">
-        <h2 className="display text-5xl md:text-7xl">Journeys in <span className="serif-i text-accent">{d.name}</span></h2>
+        <h2 className="display text-5xl md:text-7xl">Journeys in <span className="hl text-accent">{d.name}</span></h2>
         {tours.length ? (
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{tours.map((t) => <TourCard key={t.id} tour={t} />)}</div>
         ) : (

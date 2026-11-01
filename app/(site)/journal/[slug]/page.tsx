@@ -28,7 +28,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <p className="text-2xl leading-snug tracking-[-0.02em] md:text-3xl">{post.excerpt}</p>
         <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/80">
           {paras.map((p, k) => (
-            <p key={k} className={k === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-serif first-letter:text-7xl first-letter:italic first-letter:leading-[0.8] first-letter:text-accent" : ""}>{p}</p>
+            <p key={k} className={k === 0 ? "first-letter:float-left first-letter:mr-3 first-letter:font-black first-letter:text-7xl first-letter:leading-[0.8] first-letter:text-accent" : ""}>{p}</p>
           ))}
         </div>
         <div className="mt-14 flex items-center justify-between border-t border-line pt-6 text-sm">

@@ -23,7 +23,7 @@ export function SectionHead({ eyebrow, title, accent, children, className }: { e
           {accent && (
             <>
               {" "}
-              <span className="serif-i text-accent"><SplitReveal text={accent} delay={0.15} /></span>
+              <span className="hl text-accent"><SplitReveal text={accent} delay={0.15} /></span>
             </>
           )}
         </h2>
@@ -41,7 +41,7 @@ export function PlacesMarquee({ items }: { items: { name: string; image: string 
       <div className="flex w-max animate-marquee items-center gap-8 [--marquee-dur:55s] hover:[animation-play-state:paused] md:gap-12">
         {row.map((d, k) => (
           <div key={k} className="flex items-center gap-8 md:gap-12">
-            <span className="serif-i whitespace-nowrap text-5xl md:text-7xl">{d.name}</span>
+            <span className="hl whitespace-nowrap text-5xl md:text-7xl">{d.name}</span>
             <span className="h-12 w-20 shrink-0 overflow-hidden rounded-full md:h-16 md:w-28">
               <Img src={d.image} w={240} alt="" className="h-full w-full object-cover" />
             </span>
@@ -65,7 +65,7 @@ export function Manifesto({ text, images }: { text: string; images: string[] }) 
   const insertAt = [Math.floor(words.length * 0.18), Math.floor(words.length * 0.55)];
   return (
     <section className="mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-44">
-      <Reveal><p className="eyebrow mb-8 text-mute">(The studio)</p></Reveal>
+      <Reveal><p className="eyebrow mb-8 text-mute">The studio</p></Reveal>
       <div ref={ref} className="text-[8.4vw] font-medium leading-[1.08] tracking-[-0.04em] md:text-[4.4vw] xl:text-[4rem]">
         {words.map((w, k) => {
           const start = k / words.length;
@@ -116,10 +116,10 @@ export function DestinationsRail({ items }: { items: Destination[] }) {
           <div>
             <p className="eyebrow text-paper/50">Destinations — {String(items.length).padStart(2, "0")}</p>
             <h2 className="display mt-3 text-[12vw] md:text-[5.6vw] xl:text-[5rem]">
-              Places we <span className="serif-i text-accent">know</span> by heart.
+              Places we <span className="hl text-accent">know</span> by heart.
             </h2>
           </div>
-          <Link href="/destinations" className="hidden shrink-0 items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm transition hover:bg-paper hover:text-ink md:flex">
+          <Link href="/destinations" className="hidden shrink-0 items-center gap-2 rounded-md border border-white/20 px-5 py-3 text-sm transition hover:bg-paper hover:text-ink md:flex">
             All destinations <ArrowUpRight />
           </Link>
         </div>
@@ -139,7 +139,7 @@ export function DestinationsRail({ items }: { items: Destination[] }) {
                 <p className="text-xs text-white/70">{d.country}</p>
                 <h3 className="mt-1 text-4xl font-medium tracking-[-0.04em] md:text-5xl">{d.name}</h3>
                 <div className="mt-3 flex items-center justify-between text-sm">
-                  <span className="serif-i text-lg text-white/85">{d.tagline}</span>
+                  <span className="hl text-lg text-white/85">{d.tagline}</span>
                 </div>
                 <div className="mt-4 flex items-center justify-between border-t border-white/20 pt-3 text-xs text-white/70">
                   <span>from <b className="text-sm font-medium text-white">{money(d.startingPrice)}</b></span>
@@ -150,7 +150,7 @@ export function DestinationsRail({ items }: { items: Destination[] }) {
           ))}
           <Link href="/destinations" className="grid h-[58svh] w-[60vw] shrink-0 place-items-center rounded-[var(--radius)] border border-white/15 text-center transition hover:bg-white/5 sm:w-[36vw] md:h-[60vh] md:w-[22vw]">
             <span>
-              <span className="serif-i block text-5xl">See all</span>
+              <span className="hl block text-5xl">See all</span>
               <span className="mt-2 block text-sm text-paper/60">48 countries, one studio</span>
             </span>
           </Link>
@@ -173,7 +173,7 @@ export function FeaturedTours({ tours }: { tours: Tour[] }) {
   return (
     <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-36">
       <SectionHead eyebrow="Signature journeys" title="Composed," accent="not packaged.">
-        <Link href="/tours" className="group flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm text-paper transition hover:bg-accent">
+        <Link href="/tours" className="group flex w-fit items-center gap-2 rounded-md bg-ink px-5 py-3 text-sm text-paper transition hover:bg-accent">
           View all journeys <ArrowRight className="transition-transform group-hover:translate-x-1" />
         </Link>
       </SectionHead>
@@ -371,7 +371,7 @@ export function Testimonials({ items }: { items: Testimonial[] }) {
             >
               <div className="flex gap-1 text-accent">{Array.from({ length: t.rating }).map((_, k) => <Star key={k} />)}</div>
               <p className="mt-6 text-[7.2vw] font-medium leading-[1.12] tracking-[-0.035em] md:text-[3.2vw] xl:text-[2.9rem]">
-                <span className="serif-i text-accent">“</span>{t.quote}<span className="serif-i text-accent">”</span>
+                <span className="hl text-accent">“</span>{t.quote}<span className="hl text-accent">”</span>
               </p>
               <footer className="mt-8 flex items-center gap-4">
                 <Img src={t.avatar} w={120} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
@@ -418,7 +418,7 @@ export function Journal({ posts }: { posts: Post[] }) {
                 <Img src={p.cover} w={900} alt={p.title} className="h-full w-full object-cover transition-transform duration-[1.4s] group-hover:scale-105" />
               </div>
               <div className="mt-4 flex items-center gap-3 text-xs text-mute">
-                <span className="rounded-full border border-line px-2.5 py-1">{p.category}</span>
+                <span className="rounded-md border border-line px-2.5 py-1">{p.category}</span>
                 <span>{fmtDate(p.date)}</span>
                 <span>· {p.readTime} min</span>
               </div>
@@ -486,10 +486,10 @@ export function ClosingCta({ image }: { image: string }) {
         <div className="relative mx-auto flex min-h-[88svh] max-w-[1400px] flex-col justify-end px-5 py-16 md:px-10">
           <p className="eyebrow text-white/70">Your next chapter</p>
           <h2 className="display mt-4 max-w-[12ch] text-[14vw] md:text-[8vw] xl:text-[7.5rem]">
-            <SplitReveal text="It starts with a" /> <span className="serif-i text-accent"><SplitReveal text="conversation." delay={0.2} /></span>
+            <SplitReveal text="It starts with a" /> <span className="hl text-accent"><SplitReveal text="conversation." delay={0.2} /></span>
           </h2>
           <div className="mt-10 grid items-end gap-8 md:grid-cols-[auto_1fr_360px]">
-            <Link href="/contact" className="group flex w-fit items-center gap-3 rounded-full bg-white py-2 pl-6 pr-2 text-ink transition hover:bg-accent hover:text-white">
+            <Link href="/contact" className="group flex w-fit items-center gap-3 rounded-md bg-white py-2 pl-6 pr-2 text-ink transition hover:bg-accent hover:text-white">
               Plan my journey
               <span className="grid h-10 w-10 place-items-center rounded-full bg-ink text-paper transition group-hover:rotate-[-45deg]"><ArrowRight /></span>
             </Link>

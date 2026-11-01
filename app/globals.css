@@ -8,10 +8,10 @@
   --color-mute: var(--mute);
   --color-line: var(--line);
   --color-card: var(--card);
+  --color-sun: var(--sun);
 
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system, "SF Pro Text", sans-serif;
-  --font-serif: var(--font-instrument), "Times New Roman", serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, monospace;
 
   --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-snap: cubic-bezier(0.76, 0, 0.24, 1);
@@ -26,14 +26,15 @@
 }
 
 :root {
-  --paper: #f4f1ea;
-  --ink: #0d0d0c;
-  --accent: #ff5a1f;
-  --night: #0e1512;
+  --paper: #f1efea;
+  --ink: #0b0c14;
+  --accent: #2b3dff;
+  --night: #0b0c14;
+  --sun: #ffc83d;
   --mute: color-mix(in oklab, var(--ink) 55%, transparent);
   --line: color-mix(in oklab, var(--ink) 12%, transparent);
   --card: color-mix(in oklab, white 55%, var(--paper));
-  --radius: 28px;
+  --radius: 14px;
   color-scheme: light;
 }
 
@@ -51,29 +52,67 @@ html.lenis, html.lenis body { height: auto; }
 body {
   background: var(--paper);
   color: var(--ink);
-  font-feature-settings: "ss01", "cv11";
+  font-feature-settings: "ss01";
+  font-stretch: 100%;
 }
 
 ::selection { background: var(--accent); color: white; }
 
 /* Display type ------------------------------------------------------ */
+@layer components {
+/* Condensed, heavy sans for headlines… */
 .display {
   font-family: var(--font-sans);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.92;
-}
-.serif-i {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
+  font-weight: 800;
+  font-stretch: 72%;
+  font-variation-settings: "wdth" 72;
   letter-spacing: -0.02em;
+  line-height: 0.88;
+  text-transform: uppercase;
 }
+/* …contrasted with an expanded, lighter cut in the accent colour. */
+.hl {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-stretch: 125%;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+}
+.text-accent.hl, .hl.text-accent { color: var(--accent); }
+.wide { font-stretch: 125%; font-variation-settings: "wdth" 125; }
+.narrow { font-stretch: 72%; font-variation-settings: "wdth" 72; }
+}
+
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+.eyebrow::before { content: "("; opacity: .5; }
+.eyebrow::after { content: ")"; opacity: .5; }
+
+/* Ticket / boarding-pass perforation */
+.perf {
+  background-image: radial-gradient(circle at 0 50%, transparent 7px, currentColor 7.5px);
+}
+.dash-v { background: repeating-linear-gradient(to bottom, currentColor 0 4px, transparent 4px 9px); width: 1px; opacity: .25; }
+
+/* Split-flap cell */
+.flap {
+  display: inline-grid; place-items: center;
+  min-width: .72em; height: 1.25em; margin-right: 2px;
+  background: var(--ink); color: var(--paper);
+  border-radius: 3px; font-family: var(--font-mono); font-weight: 600;
+  position: relative; overflow: hidden;
+}
+.flap::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgb(255 255 255 / .12); }
+
+/* Faint 12-col grid lines (Swiss layout cue) */
+.grid-lines {
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+  background-size: calc(100% / 12) 100%;
 }
 
 .r-xl { border-radius: var(--radius); }
@@ -84,8 +123,8 @@ body {
   background: color-mix(in oklab, var(--paper) 62%, transparent);
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid color-mix(in oklab, white 55%, transparent);
-  box-shadow: 0 1px 0 0 rgb(255 255 255 / 0.5) inset, 0 20px 50px -20px rgb(0 0 0 / 0.25);
+  border: 1px solid color-mix(in oklab, white 45%, transparent);
+  box-shadow: 0 20px 50px -25px rgb(0 0 0 / 0.25);
 }
 .glass-dark {
   background: color-mix(in oklab, var(--night) 72%, transparent);
@@ -126,3 +165,12 @@ body {
 }
 
 html[data-intro-seen="1"] .intro-layer { display: none; }
+
+/* Width-axis hover — a signature of the type system */
+.menu-link, .stretch-link {
+  display: inline-block;
+  transition: font-variation-settings .7s cubic-bezier(.22,1,.36,1), font-weight .7s cubic-bezier(.22,1,.36,1), letter-spacing .7s;
+}
+.menu-link { font-variation-settings: "wdth" 72; }
+.group:hover .menu-link { font-variation-settings: "wdth" 125; font-weight: 300; letter-spacing: -0.05em; }
+.group:hover .stretch-link { font-variation-settings: "wdth" 118; }

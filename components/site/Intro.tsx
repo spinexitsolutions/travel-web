@@ -81,7 +81,7 @@ export default function Intro() {
 
   return (
     <motion.div
-      className="intro-layer fixed inset-0 z-[100] overflow-hidden bg-night text-paper"
+      className="intro-layer fixed inset-0 z-[100] overflow-hidden bg-accent text-white"
       initial={{ clipPath: "inset(0% 0% 0% 0%)" }}
       animate={phase === "exit" ? { clipPath: "inset(0% 0% 100% 0%)" } : { clipPath: "inset(0% 0% 0% 0%)" }}
       transition={{ duration: 1, ease }}
@@ -90,23 +90,23 @@ export default function Intro() {
       {/* top row */}
       <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 md:p-8">
         <div className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-accent text-sm font-semibold text-white">
+          <span className="grid h-7 w-7 place-items-center rounded-[6px] bg-white text-[13px] font-bold text-accent">
             {settings.brand.logoMark}
           </span>
-          <span className="text-lg font-medium tracking-tight">{settings.brand.name}</span>
+          <span className="wide text-[17px] font-semibold uppercase">{settings.brand.name}</span>
         </div>
-        <span className="eyebrow text-paper/50">Composing your journey</span>
+        <span className="eyebrow text-white/60">Boarding</span>
       </div>
 
       {/* frame */}
       <div className="absolute inset-0 grid place-items-center">
         <motion.div
           className="relative overflow-hidden"
-          initial={{ width: "min(56vw, 300px)", height: "min(72vw, 400px)", borderRadius: 24, opacity: 0, y: 40 }}
+          initial={{ width: "min(46vw, 240px)", height: "min(70vw, 380px)", borderRadius: 999, opacity: 0, y: 40 }}
           animate={
             phase === "bloom" || phase === "exit"
               ? { width: "100vw", height: "100dvh", borderRadius: 0, opacity: 1, y: 0 }
-              : { width: "min(56vw, 300px)", height: "min(72vw, 400px)", borderRadius: 24, opacity: 1, y: 0 }
+              : { width: "min(46vw, 240px)", height: "min(70vw, 380px)", borderRadius: 999, opacity: 1, y: 0 }
           }
           transition={{ duration: phase === "bloom" ? 0.9 : 0.8, ease }}
         >
@@ -127,12 +127,12 @@ export default function Intro() {
       </div>
 
       {/* word */}
-      <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center mix-blend-difference">
+      <div className="pointer-events-none absolute inset-0 z-10 grid place-items-center">
         <AnimatePresence mode="popLayout">
           {phase === "run" && (
             <motion.span
               key={words[i % words.length]}
-              className="serif-i text-[18vw] leading-none text-white md:text-[11vw]"
+              className="wide whitespace-nowrap text-[14vw] font-light uppercase leading-none tracking-[-0.05em] text-white md:text-[9vw]"
               initial={{ y: "60%", opacity: 0, filter: "blur(10px)" }}
               animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
               exit={{ y: "-60%", opacity: 0, filter: "blur(10px)" }}
@@ -149,13 +149,13 @@ export default function Intro() {
         className="absolute inset-x-0 bottom-0 z-20 flex items-end justify-between gap-6 p-5 md:p-8"
         animate={{ opacity: phase === "run" ? 1 : 0 }}
       >
-        <p className="max-w-[16rem] text-sm text-paper/60">{cfg.tagline}</p>
-        <div className="font-mono text-6xl font-light tabular-nums tracking-tighter md:text-8xl">
+        <p className="max-w-[16rem] font-mono text-[11px] uppercase text-white/70">{cfg.tagline}</p>
+        <div className="display text-7xl tabular-nums md:text-[9rem]">
           {String(count).padStart(3, "0")}
         </div>
       </motion.div>
       <motion.div
-        className="absolute bottom-0 left-0 z-20 h-[2px] bg-accent"
+        className="absolute bottom-0 left-0 z-20 h-[3px] bg-white"
         style={{ width: `${count}%` }}
         animate={{ opacity: phase === "run" ? 1 : 0 }}
       />

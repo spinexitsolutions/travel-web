@@ -34,7 +34,7 @@ export default function DestinationGrid({ items }: { items: Destination[] }) {
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <p className="text-xs text-white/70">{d.country} · {d.bestTime}</p>
                   <h3 className="mt-1 text-5xl font-medium tracking-[-0.045em]">{d.name}</h3>
-                  <p className="serif-i mt-1 text-xl text-white/85">{d.tagline}</p>
+                  <p className="hl mt-1 text-xl text-white/85">{d.tagline}</p>
                   <div className="mt-4 flex items-center justify-between border-t border-white/20 pt-3 text-sm">
                     <span className="text-white/70">from <b className="font-medium text-white">{money(d.startingPrice)}</b></span>
                     <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-ink transition group-hover:rotate-45 group-hover:bg-accent group-hover:text-white"><ArrowUpRight /></span>

@@ -30,7 +30,7 @@ export default async function AboutPage() {
       <PageHero eyebrow="The studio" title="Small team." accent="Long memories." sub={s.manifesto} image={IMG.backpackLake} />
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         <div className="grid gap-12 md:grid-cols-2">
-          <Reveal><h2 className="display text-5xl md:text-7xl">What we <span className="serif-i text-accent">believe.</span></h2></Reveal>
+          <Reveal><h2 className="display text-5xl md:text-7xl">What we <span className="hl text-accent">believe.</span></h2></Reveal>
           <div className="grid gap-px overflow-hidden rounded-[var(--radius)] bg-line sm:grid-cols-2">
             {VALUES.map(([t, d], k) => (
               <Reveal key={t} delay={k * 0.06} className="bg-paper p-6 md:p-8">
@@ -44,7 +44,7 @@ export default async function AboutPage() {
       </section>
       <Stats stats={s.stats} image={IMG.himalaya} />
       <section className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
-        <h2 className="display text-5xl md:text-7xl">The <span className="serif-i text-accent">planners.</span></h2>
+        <h2 className="display text-5xl md:text-7xl">The <span className="hl text-accent">planners.</span></h2>
         <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
           {TEAM.map((t, k) => (
             <Reveal key={t.n} delay={k * 0.08}>
@@ -57,7 +57,7 @@ export default async function AboutPage() {
           ))}
         </div>
         <div className="mt-20 text-center">
-          <Link href="/contact" className="inline-flex rounded-full bg-ink px-7 py-4 text-paper transition hover:bg-accent">Talk to a planner</Link>
+          <Link href="/contact" className="inline-flex rounded-md bg-ink px-7 py-4 text-paper transition hover:bg-accent">Talk to a planner</Link>
         </div>
       </section>
     </>

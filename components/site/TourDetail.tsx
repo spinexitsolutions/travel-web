@@ -25,7 +25,7 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
   return (
     <>
       {/* Hero */}
-      <section ref={ref} className="px-3 pt-3 md:px-6 md:pt-6">
+      <section ref={ref} className="px-3 pt-[96px] md:px-6 md:pt-[104px]">
         <div className="r-xl relative min-h-[86svh] overflow-hidden bg-night text-white">
           <motion.div style={{ y }} className="absolute inset-0">
             <Img src={tour.image} w={2200} alt={tour.title} priority className="h-full w-full object-cover" />
@@ -34,8 +34,8 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1400px] flex-col justify-end px-5 pb-24 pt-32 md:px-10 md:pb-12">
             <div className="flex flex-wrap items-center gap-2 text-xs">
               <Link href="/tours" className="glass rounded-full px-3 py-1.5 text-ink">← All journeys</Link>
-              <span className="rounded-full bg-accent px-3 py-1.5">{tour.category}</span>
-              {destination && <Link href={`/destinations/${destination.slug}`} className="rounded-full border border-white/30 px-3 py-1.5 hover:bg-white/10"><Pin className="mr-1 inline" />{destination.name}, {destination.country}</Link>}
+              <span className="rounded-md bg-accent px-3 py-1.5">{tour.category}</span>
+              {destination && <Link href={`/destinations/${destination.slug}`} className="rounded-md border border-white/30 px-3 py-1.5 hover:bg-white/10"><Pin className="mr-1 inline" />{destination.name}, {destination.country}</Link>}
             </div>
             <h1 className="display mt-5 max-w-[16ch] text-[12vw] md:text-[7vw] xl:text-[6.5rem]">
               <SplitReveal text={tour.title} play={introDone} />
@@ -90,7 +90,7 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
           {/* Itinerary */}
           <div>
             <div className="flex items-end justify-between">
-              <h2 className="display text-5xl md:text-6xl">Day by <span className="serif-i text-accent">day</span></h2>
+              <h2 className="display text-5xl md:text-6xl">Day by <span className="hl text-accent">day</span></h2>
               <span className="text-sm text-mute">{tour.itinerary.length} days</span>
             </div>
             <ol className="relative mt-8 border-l border-line pl-6 md:pl-10">
@@ -169,7 +169,7 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
             <button onClick={() => toggleWish(tour.slug)} className={cn("flex flex-1 items-center justify-center gap-2 rounded-full border py-3 text-sm transition", wished ? "border-accent bg-accent text-white" : "border-line hover:border-ink")}>
               <Heart filled={wished} /> {wished ? "Saved" : "Save"}
             </button>
-            <a href={`https://wa.me/${settings.brand.whatsapp}?text=${encodeURIComponent(`Hi! I'm interested in "${tour.title}".`)}`} target="_blank" rel="noreferrer" className="flex flex-1 items-center justify-center gap-2 rounded-full border border-line py-3 text-sm transition hover:border-[#25D366] hover:bg-[#25D366] hover:text-white">
+            <a href={`https://wa.me/${settings.brand.whatsapp}?text=${encodeURIComponent(`Hi! I'm interested in "${tour.title}".`)}`} target="_blank" rel="noreferrer" className="flex flex-1 items-center justify-center gap-2 rounded-md border border-line py-3 text-sm transition hover:border-[#25D366] hover:bg-[#25D366] hover:text-white">
               <Whatsapp /> Ask on WhatsApp
             </a>
           </div>
@@ -178,7 +178,7 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
 
       {/* Related */}
       <section className="mx-auto max-w-[1400px] px-5 pb-28 md:px-10">
-        <h2 className="display text-5xl md:text-7xl">You may <span className="serif-i text-accent">also love</span></h2>
+        <h2 className="display text-5xl md:text-7xl">You may <span className="hl text-accent">also love</span></h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {related.map((t) => <TourCard key={t.id} tour={t} />)}
         </div>
@@ -191,9 +191,9 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
             <motion.div key={light} initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, ease }} className="relative max-h-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
               <Img src={gallery[light]} w={2000} alt="" className="max-h-[82vh] w-auto rounded-2xl object-contain" />
               <div className="mt-4 flex items-center justify-between text-sm text-white/80">
-                <button onClick={() => setLight((light - 1 + gallery.length) % gallery.length)} className="rounded-full border border-white/20 px-4 py-2 hover:bg-white/10">← Prev</button>
+                <button onClick={() => setLight((light - 1 + gallery.length) % gallery.length)} className="rounded-md border border-white/20 px-4 py-2 hover:bg-white/10">← Prev</button>
                 <span className="font-mono">{light + 1} / {gallery.length}</span>
-                <button onClick={() => setLight((light + 1) % gallery.length)} className="rounded-full border border-white/20 px-4 py-2 hover:bg-white/10">Next →</button>
+                <button onClick={() => setLight((light + 1) % gallery.length)} className="rounded-md border border-white/20 px-4 py-2 hover:bg-white/10">Next →</button>
               </div>
             </motion.div>
             <button onClick={() => setLight(null)} className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-xl text-white" aria-label="Close"><X /></button>
@@ -264,7 +264,7 @@ function BookingCard({ tour }: { tour: Tour }) {
               <span className="text-paper/60">Total</span>
               <motion.span key={total} initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-2xl font-medium tabular-nums">{money(total)}</motion.span>
             </div>
-            <button disabled={!date} onClick={() => setStep(1)} className="group mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-accent py-4 font-medium text-white transition hover:brightness-110 disabled:opacity-40">
+            <button disabled={!date} onClick={() => setStep(1)} className="group mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-accent py-4 font-medium text-white transition hover:brightness-110 disabled:opacity-40">
               Reserve — pay 20% later <ArrowRight className="transition-transform group-hover:translate-x-1" />
             </button>
             <p className="mt-3 text-center text-xs text-paper/40">No payment now · Free changes up to 60 days</p>
@@ -279,13 +279,13 @@ function BookingCard({ tour }: { tour: Tour }) {
             <input placeholder="Phone / WhatsApp" className={input} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             <textarea placeholder="Anything we should know? (optional)" rows={3} className={input} value={form.requests} onChange={(e) => setForm({ ...form, requests: e.target.value })} />
             {err && <p className="text-sm text-red-400">{err}</p>}
-            <button disabled={loading} className="w-full rounded-full bg-accent py-4 font-medium text-white transition hover:brightness-110 disabled:opacity-50">{loading ? "Reserving…" : "Confirm reservation"}</button>
+            <button disabled={loading} className="w-full rounded-md bg-accent py-4 font-medium text-white transition hover:brightness-110 disabled:opacity-50">{loading ? "Reserving…" : "Confirm reservation"}</button>
           </motion.form>
         )}
         {step === 2 && (
           <motion.div key="s2" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease }} className="py-6 text-center">
             <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }} className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent text-3xl text-white"><Check /></motion.span>
-            <p className="serif-i mt-5 text-4xl">You’re going.</p>
+            <p className="hl mt-5 text-4xl">You’re going.</p>
             <p className="mt-2 text-paper/60">Reservation <b className="font-mono text-paper">{ref}</b> received. Your planner will write within a few hours.</p>
             <button onClick={() => { setStep(0); setForm({ name: "", email: "", phone: "", requests: "" }); }} className="mt-6 text-sm text-paper/60 underline">Make another</button>
           </motion.div>

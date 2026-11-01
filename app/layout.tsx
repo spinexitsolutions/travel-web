@@ -1,17 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Archivo, JetBrains_Mono } from "next/font/google";
 import { getSettings } from "@/lib/db";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
-const serif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
-  display: "swap",
-});
+// One variable sans family with a width axis (62–125) — lets headlines
+// mix condensed and expanded cuts, and animate between them.
+const archivo = Archivo({ subsets: ["latin"], axes: ["wdth"], variable: "--font-archivo", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono-jb", display: "swap" });
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
@@ -23,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f4f1ea",
+  themeColor: "#f1efea",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -31,7 +26,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${archivo.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh font-sans antialiased">{children}</body>
     </html>
   );

@@ -157,20 +157,20 @@ export function createSeed(): DB {
           { label: "Pinterest", href: "https://pinterest.com" },
         ],
       },
-      theme: { accent: "#FF5A1F", dark: "#0E1512", paper: "#F4F1EA", radius: 28 },
+      theme: { accent: "#2B3DFF", dark: "#0B0C14", paper: "#F1EFEA", radius: 14 },
       intro: {
         enabled: true,
         oncePerSession: true,
         duration: 3.2,
         words: ["Santorini", "Kyoto", "Bali", "Dolomites", "Reykjavík", "Jaipur", "Malé"],
         images: [IMG.santorini, IMG.kyoto, IMG.baliTemple, IMG.braiesBoat, IMG.aurora, IMG.jaipur, IMG.infinityPool],
-        tagline: "The world, thoughtfully composed.",
+        tagline: "Please keep your window shade up.",
       },
       hero: {
-        eyebrow: "Independent travel studio · Est. 2014",
-        titleTop: "Go where the",
-        titleAccent: "light",
-        titleBottom: "is softer.",
+        eyebrow: "Independent travel studio · Mumbai · Est. 2014",
+        titleTop: "Leave the",
+        titleAccent: "ordinary",
+        titleBottom: "behind.",
         subtitle:
           "Private, design-led journeys to 40+ countries. Planned by people who have stood exactly where you'll stand.",
         slides: [

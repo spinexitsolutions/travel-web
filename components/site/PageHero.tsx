@@ -28,11 +28,11 @@ export default function PageHero({
 
   if (!image) {
     return (
-      <section ref={ref} className="mx-auto max-w-[1400px] px-5 pb-10 pt-16 md:px-10 md:pb-16 md:pt-40">
+      <section ref={ref} className="mx-auto max-w-[1400px] px-5 pb-10 pt-36 md:px-10 md:pb-16 md:pt-48">
         <p className="eyebrow text-mute">{eyebrow}</p>
         <h1 className="display mt-5 max-w-[16ch] text-[14vw] md:text-[8vw] xl:text-[7.5rem]">
           <SplitReveal text={title} play={introDone} />
-          {accent && <> <span className="serif-i text-accent"><SplitReveal text={accent} play={introDone} delay={0.15} /></span></>}
+          {accent && <> <span className="hl text-accent"><SplitReveal text={accent} play={introDone} delay={0.15} /></span></>}
         </h1>
         {sub && <p className="mt-6 max-w-xl text-lg text-mute">{sub}</p>}
         {children}
@@ -41,7 +41,7 @@ export default function PageHero({
   }
 
   return (
-    <section ref={ref} className="px-3 pt-3 md:px-6 md:pt-6">
+    <section ref={ref} className="px-3 pt-[96px] md:px-6 md:pt-[104px]">
       <motion.div style={{ scale }} className="r-xl relative flex min-h-[78svh] origin-top items-end overflow-hidden bg-night text-white">
         <motion.div style={{ y }} className="absolute inset-0">
           <Img src={image} w={2200} alt="" priority className="h-full w-full object-cover" />
@@ -51,7 +51,7 @@ export default function PageHero({
           <p className="eyebrow text-white/75">{eyebrow}</p>
           <h1 className="display mt-4 max-w-[14ch] text-[14vw] md:text-[8vw] xl:text-[7.5rem]">
             <SplitReveal text={title} play={introDone} />
-            {accent && <> <span className="serif-i text-accent"><SplitReveal text={accent} play={introDone} delay={0.15} /></span></>}
+            {accent && <> <span className="hl text-accent"><SplitReveal text={accent} play={introDone} delay={0.15} /></span></>}
           </h1>
           {sub && <p className="mt-5 max-w-xl text-white/80 md:text-lg">{sub}</p>}
           {children}

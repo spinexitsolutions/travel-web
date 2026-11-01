@@ -49,7 +49,7 @@ export default function Footer({ settings }: { settings: SiteSettings }) {
             <div className="mt-4"><Newsletter dark /></div>
             <div className="mt-8 flex flex-wrap gap-2">
               {settings.brand.socials.map((s) => (
-                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 rounded-full border border-white/15 px-3 py-1.5 text-xs text-paper/70 transition hover:border-accent hover:bg-accent hover:text-white">
+                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 rounded-md border border-white/15 px-3 py-1.5 text-xs text-paper/70 transition hover:border-accent hover:bg-accent hover:text-white">
                   {s.label}
                   <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>

@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import type { Tour } from "@/lib/types";
 import { useSite } from "./SiteContext";
 import Img from "./Img";
-import { Clock, Heart, Star } from "./Icons";
+import { ArrowUpRight, Heart, Star } from "./Icons";
 import { cn } from "@/lib/utils";
 
 export default function TourCard({ tour, className, priority }: { tour: Tour; className?: string; priority?: boolean }) {
@@ -13,42 +13,46 @@ export default function TourCard({ tour, className, priority }: { tour: Tour; cl
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={cn("group relative", className)}
     >
       <Link href={`/tours/${tour.slug}`} className="block" data-cursor="View">
         <div className="r-xl relative aspect-[4/5] overflow-hidden bg-line">
-          <Img
-            src={tour.image}
-            w={900}
-            sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-            alt={tour.title}
-            priority={priority}
-            className="h-full w-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.07]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/0 to-black/10" />
-          <div className="absolute left-4 top-4 flex gap-1.5">
-            <span className="glass rounded-full px-3 py-1 text-[11px] font-medium">{tour.category}</span>
-            {tour.oldPrice && <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-medium text-white">Save {Math.round((1 - tour.price / tour.oldPrice) * 100)}%</span>}
+          <div className="absolute inset-0 transition-[clip-path] duration-700 ease-[cubic-bezier(.22,1,.36,1)] [clip-path:inset(0_round_var(--radius))] group-hover:[clip-path:inset(10px_round_calc(var(--radius)-4px))]">
+            <Img
+              src={tour.image}
+              w={900}
+              sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+              alt={tour.title}
+              priority={priority}
+              className="h-full w-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.06]"
+            />
           </div>
-          <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-            <div className="flex items-center gap-3 text-xs text-white/80">
-              <span className="flex items-center gap-1"><Clock /> {tour.days} days</span>
-              <span className="flex items-center gap-1"><Star className="text-amber-300" /> {tour.rating.toFixed(1)} <span className="text-white/50">({tour.reviews})</span></span>
-            </div>
-            <h3 className="mt-2 text-[1.45rem] font-medium leading-[1.05] tracking-[-0.03em]">{tour.title}</h3>
-            <div className="mt-3 flex items-end justify-between">
-              <p className="text-sm text-white/75">
-                from <span className="text-lg font-medium text-white">{money(tour.price)}</span>
-                {tour.oldPrice && <span className="ml-2 text-xs text-white/50 line-through">{money(tour.oldPrice)}</span>}
-              </p>
-              <span className="translate-y-2 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-ink opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                Explore
-              </span>
-            </div>
+          <div className="absolute left-3 top-3 flex gap-1.5">
+            <span className="rounded-[5px] bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-ink">{tour.category}</span>
+            {tour.oldPrice && <span className="rounded-[5px] bg-accent px-2 py-1 font-mono text-[10px] uppercase text-white">−{Math.round((1 - tour.price / tour.oldPrice) * 100)}%</span>}
+          </div>
+          <span className="absolute bottom-3 right-3 grid h-11 w-11 translate-y-3 place-items-center rounded-full bg-accent text-lg text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <ArrowUpRight />
+          </span>
+        </div>
+        <div className="mt-4 flex items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-wider text-mute">
+              <span>{String(tour.days).padStart(2, "0")} days</span>
+              <span className="h-px w-3 bg-ink/25" />
+              <span className="flex items-center gap-1"><Star className="text-accent" />{tour.rating.toFixed(1)}</span>
+              <span className="hidden sm:inline">({tour.reviews})</span>
+            </p>
+            <h3 className="mt-2 text-[1.35rem] font-semibold leading-[1.1] tracking-[-0.025em] transition-colors group-hover:text-accent">{tour.title}</h3>
+          </div>
+          <div className="shrink-0 text-right">
+            <p className="font-mono text-[10px] uppercase text-mute">from</p>
+            <p className="text-lg font-semibold tabular-nums tracking-tight">{money(tour.price)}</p>
+            {tour.oldPrice && <p className="text-xs text-mute line-through">{money(tour.oldPrice)}</p>}
           </div>
         </div>
       </Link>
@@ -58,8 +62,8 @@ export default function TourCard({ tour, className, priority }: { tour: Tour; cl
         aria-pressed={wished}
         aria-label={wished ? "Remove from wishlist" : "Save to wishlist"}
         className={cn(
-          "absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full text-lg transition-colors",
-          wished ? "bg-accent text-white" : "glass text-ink hover:bg-white",
+          "absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-md text-base transition-colors",
+          wished ? "bg-accent text-white" : "bg-paper/90 text-ink hover:bg-white",
         )}
       >
         <Heart filled={wished} />

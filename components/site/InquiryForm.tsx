@@ -74,7 +74,7 @@ export default function InquiryForm({ destinations, initialDestination = "" }: {
                   </div>
                 </div>
               </div>
-              <button type="button" onClick={() => setStep(1)} className="group flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm text-paper transition hover:bg-accent">Continue <ArrowRight className="transition-transform group-hover:translate-x-1" /></button>
+              <button type="button" onClick={() => setStep(1)} className="group flex items-center gap-2 rounded-md bg-ink px-6 py-3.5 text-sm text-paper transition hover:bg-accent">Continue <ArrowRight className="transition-transform group-hover:translate-x-1" /></button>
             </motion.div>
           )}
           {step === 1 && (
@@ -88,8 +88,8 @@ export default function InquiryForm({ destinations, initialDestination = "" }: {
                 <div className="mt-4 flex flex-wrap gap-2">{BUDGETS.map((s) => <button type="button" key={s} onClick={() => set("budget", s)} className={chip(f.budget === s)}>{s}</button>)}</div>
               </div>
               <div className="flex gap-3">
-                <button type="button" onClick={() => setStep(0)} className="rounded-full border border-line px-6 py-3.5 text-sm hover:border-ink">Back</button>
-                <button type="button" onClick={() => setStep(2)} className="group flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm text-paper transition hover:bg-accent">Continue <ArrowRight className="transition-transform group-hover:translate-x-1" /></button>
+                <button type="button" onClick={() => setStep(0)} className="rounded-md border border-line px-6 py-3.5 text-sm hover:border-ink">Back</button>
+                <button type="button" onClick={() => setStep(2)} className="group flex items-center gap-2 rounded-md bg-ink px-6 py-3.5 text-sm text-paper transition hover:bg-accent">Continue <ArrowRight className="transition-transform group-hover:translate-x-1" /></button>
               </div>
             </motion.div>
           )}
@@ -104,15 +104,15 @@ export default function InquiryForm({ destinations, initialDestination = "" }: {
               <textarea rows={3} placeholder="Anything else? Occasions, must-dos, dietary needs…" value={f.message} onChange={(e) => set("message", e.target.value)} className={cn(input, "resize-none")} />
               {err && <p className="text-sm text-red-600">{err}</p>}
               <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setStep(1)} className="rounded-full border border-line px-6 py-3.5 text-sm hover:border-ink">Back</button>
-                <button disabled={loading} className="flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white transition hover:brightness-110 disabled:opacity-50">{loading ? "Sending…" : "Send to a planner"} <ArrowRight /></button>
+                <button type="button" onClick={() => setStep(1)} className="rounded-md border border-line px-6 py-3.5 text-sm hover:border-ink">Back</button>
+                <button disabled={loading} className="flex items-center gap-2 rounded-md bg-accent px-7 py-3.5 text-sm font-medium text-white transition hover:brightness-110 disabled:opacity-50">{loading ? "Sending…" : "Send to a planner"} <ArrowRight /></button>
               </div>
             </motion.div>
           )}
           {step === 3 && (
             <motion.div key="3" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease }} className="py-10 text-center">
               <motion.span initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 260, damping: 15, delay: 0.15 }} className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-accent text-4xl text-white"><Check /></motion.span>
-              <p className="serif-i mt-6 text-5xl">Thank you, {f.name.split(" ")[0]}.</p>
+              <p className="hl mt-6 text-5xl">Thank you, {f.name.split(" ")[0]}.</p>
               <p className="mx-auto mt-3 max-w-sm text-mute">A planner who knows {f.destination || "the world"} well will write to you within a few hours.</p>
             </motion.div>
           )}

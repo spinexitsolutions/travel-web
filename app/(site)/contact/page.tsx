@@ -36,7 +36,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         </aside>
       </section>
       <section className="mx-auto max-w-[1000px] px-5 pb-28 md:px-10">
-        <h2 className="display mb-8 text-5xl md:text-6xl">Questions, <span className="serif-i text-accent">answered.</span></h2>
+        <h2 className="display mb-8 text-5xl md:text-6xl">Questions, <span className="hl text-accent">answered.</span></h2>
         <FaqList items={db.faqs} />
       </section>
     </>

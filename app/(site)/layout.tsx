@@ -6,7 +6,6 @@ import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import Cursor from "@/components/site/Cursor";
 import ScrollProgress from "@/components/site/ScrollProgress";
-import Announcement from "@/components/site/Announcement";
 import FloatingWhatsapp from "@/components/site/FloatingWhatsapp";
 import type { SpotItem } from "@/components/site/Spotlight";
 
@@ -37,7 +36,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <SmoothScroll />
       <ScrollProgress />
       <Intro />
-      <Announcement a={s.announcement} />
       <Navbar index={index} />
       <main className="relative">{children}</main>
       <Footer settings={s} />

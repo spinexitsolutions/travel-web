@@ -17,12 +17,11 @@ Copy `.env.example` to `.env.local` and set `ADMIN_PASSWORD` and `ADMIN_SECRET` 
 
 ## Website features
 
+- **Design system**: a single variable sans-serif (Archivo, with a width axis) for both condensed headlines and expanded accent words; Klein-blue accent; grid lines and boarding-pass details. Includes **page transitions**.
 - **Intro animation**: a counter, a framed destination slideshow and changing words, then the frame expands to full screen and lifts into the hero. You can set it all from the admin panel: on/off, play once per session, duration, words, images and tagline.
-- **"Island" navbar**: a glass capsule that changes shape.
-  - On mobile it sits at the bottom, where your thumb reaches, and opens upward into a menu sheet.
-  - On desktop it sits at the top, shrinks when you scroll, and opens into a panel with live image previews.
-  - It also has a live clock, a wishlist counter and a ⌘K **Spotlight search**.
-- **Hero**: a slideshow with a slow zoom, a word-by-word headline reveal, the image shrinking into a card as you scroll, and a search bar for where, when and how many guests.
+- **Navbar**: an editorial top bar that hides when you scroll down and comes back when you scroll up. The Menu button opens a full-screen accent-colour menu with a circular reveal; links stretch along the font width axis on hover, with image previews.
+- **"Window seat" hero**: poster-style headline next to an aircraft-window slideshow, a split-flap "Now boarding" board, and a boarding-pass search. As you scroll, the window opens to full screen ("Now arriving").
+- **Spotlight search** (⌘K), live clock and wishlist counter in the navbar.
 - **Scroll effects**:
   - The manifesto text fills in word by word as you scroll.
   - The destinations rail is pinned and scrolls sideways.

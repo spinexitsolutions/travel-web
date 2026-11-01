@@ -195,7 +195,7 @@ export default function SettingsEditor({ initial }: { initial: SiteSettings }) {
                         <img src={img(s.hero.slides[0]?.image ?? "", 900)} alt="" className="absolute inset-0 h-full w-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                         <div className="absolute bottom-4 left-4 text-white">
-                          <div className="text-2xl font-medium tracking-[-0.04em]">{s.hero.titleTop} <span className="serif-i">{s.hero.titleAccent}</span></div>
+                          <div className="text-2xl font-medium tracking-[-0.04em]">{s.hero.titleTop} <span className="hl">{s.hero.titleAccent}</span></div>
                           <span className="mt-3 inline-block rounded-full px-4 py-2 text-xs font-medium text-white" style={{ background: s.theme.accent }}>{s.hero.ctaLabel}</span>
                         </div>
                       </div>
@@ -249,7 +249,7 @@ export default function SettingsEditor({ initial }: { initial: SiteSettings }) {
                   <div className="grid gap-4 sm:grid-cols-3">
                     <Field label="Eyebrow" className="sm:col-span-3"><Input value={s.hero.eyebrow} onChange={(e) => patch("hero", { eyebrow: e.target.value })} /></Field>
                     <Field label="Title — first line"><Input value={s.hero.titleTop} onChange={(e) => patch("hero", { titleTop: e.target.value })} /></Field>
-                    <Field label="Accent word" hint="serif italic"><Input value={s.hero.titleAccent} onChange={(e) => patch("hero", { titleAccent: e.target.value })} /></Field>
+                    <Field label="Accent word" hint="wide accent"><Input value={s.hero.titleAccent} onChange={(e) => patch("hero", { titleAccent: e.target.value })} /></Field>
                     <Field label="Title — last line"><Input value={s.hero.titleBottom} onChange={(e) => patch("hero", { titleBottom: e.target.value })} /></Field>
                     <Field label="Subtitle" className="sm:col-span-3"><Textarea rows={3} value={s.hero.subtitle} onChange={(e) => patch("hero", { subtitle: e.target.value })} /></Field>
                     <Field label="CTA label"><Input value={s.hero.ctaLabel} onChange={(e) => patch("hero", { ctaLabel: e.target.value })} /></Field>
@@ -257,7 +257,7 @@ export default function SettingsEditor({ initial }: { initial: SiteSettings }) {
                   <div className="mt-5 rounded-2xl bg-ink p-6 text-paper">
                     <div className="eyebrow text-paper/50">{s.hero.eyebrow}</div>
                     <div className="mt-3 text-3xl font-medium leading-[0.95] tracking-[-0.045em] sm:text-5xl">
-                      {s.hero.titleTop} <span className="serif-i" style={{ color: s.theme.accent }}>{s.hero.titleAccent}</span>
+                      {s.hero.titleTop} <span className="hl" style={{ color: s.theme.accent }}>{s.hero.titleAccent}</span>
                       <br />
                       {s.hero.titleBottom}
                     </div>

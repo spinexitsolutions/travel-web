@@ -49,7 +49,7 @@ export default function LoginForm({ brand, image }: { brand: string; image: stri
         <div className="absolute bottom-10 left-10 right-10 text-white">
           <div className="eyebrow text-white/70">Studio console</div>
           <p className="mt-3 max-w-md text-4xl font-medium leading-[1.05] tracking-[-0.04em]">
-            Every journey, every guest, <span className="serif-i">one calm place.</span>
+            Every journey, every guest, <span className="hl">one calm place.</span>
           </p>
         </div>
       </div>

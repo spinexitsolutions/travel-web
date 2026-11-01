@@ -125,7 +125,7 @@ export default function ToursExplorer({
                   <select value={sort} onChange={(e) => setSort(e.target.value)} className="rounded-full bg-white/70 px-4 py-2.5 text-sm outline-none">
                     {SORTS.map((s) => <option key={s}>{s}</option>)}
                   </select>
-                  <button onClick={() => setPanel(false)} className="rounded-full bg-ink px-5 py-2.5 text-sm text-paper">Show {results.length}</button>
+                  <button onClick={() => setPanel(false)} className="rounded-md bg-ink px-5 py-2.5 text-sm text-paper">Show {results.length}</button>
                 </div>
               </div>
             </motion.div>
@@ -146,9 +146,9 @@ export default function ToursExplorer({
       </motion.div>
       {results.length === 0 && (
         <div className="r-xl mt-6 border border-dashed border-line px-6 py-20 text-center">
-          <p className="serif-i text-4xl">Nothing quite fits — yet.</p>
+          <p className="hl text-4xl">Nothing quite fits — yet.</p>
           <p className="mt-3 text-mute">Every journey can be tailor-made. Tell us what you’re dreaming of.</p>
-          <a href="/contact" className="mt-6 inline-flex rounded-full bg-ink px-5 py-3 text-sm text-paper hover:bg-accent">Plan a custom trip</a>
+          <a href="/contact" className="mt-6 inline-flex rounded-md bg-ink px-5 py-3 text-sm text-paper hover:bg-accent">Plan a custom trip</a>
         </div>
       )}
     </section>
