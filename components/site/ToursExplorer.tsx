@@ -77,7 +77,7 @@ export default function ToursExplorer({
         <p className="eyebrow text-mute">Departure month</p>
         <div className="mt-3 grid grid-cols-6 gap-1.5">
           {MONTHS.map((m) => (
-            <button key={m} onClick={() => setMonth(month === m ? "" : m)} className={cn("rounded-xl border py-2 text-xs transition", month === m ? "border-accent bg-accent text-white" : "border-line hover:border-ink")}>{m}</button>
+            <button key={m} onClick={() => setMonth(month === m ? "" : m)} className={cn("rounded-xl border py-2 text-xs transition", month === m ? "border-accent bg-accent text-on-accent" : "border-line hover:border-ink")}>{m}</button>
           ))}
         </div>
       </div>
@@ -112,7 +112,7 @@ export default function ToursExplorer({
           <select value={sort} onChange={(e) => setSort(e.target.value)} className="hidden rounded-full bg-white/70 px-4 py-2.5 text-sm outline-none lg:block">
             {SORTS.map((s) => <option key={s}>{s}</option>)}
           </select>
-          <button onClick={() => setPanel((p) => !p)} className={cn("rounded-full px-4 py-2.5 text-sm transition", panel ? "bg-accent text-white" : "bg-white/70 hover:bg-white")}>
+          <button onClick={() => setPanel((p) => !p)} className={cn("rounded-full px-4 py-2.5 text-sm transition", panel ? "bg-accent text-on-accent" : "bg-white/70 hover:bg-white")}>
             Filters{active.length > 0 && ` · ${active.length}`}
           </button>
         </div>

@@ -8,6 +8,7 @@ import Cursor from "@/components/site/Cursor";
 import ScrollProgress from "@/components/site/ScrollProgress";
 import FloatingWhatsapp from "@/components/site/FloatingWhatsapp";
 import type { SpotItem } from "@/components/site/Spotlight";
+import { PRESETS, PRESET_FONTS, isDark, onColor } from "@/lib/presets";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,17 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     ...s.nav.map((n) => ({ type: "Page" as const, title: n.label, sub: "Page", href: n.href, image: n.image })),
   ];
 
-  const css = `:root{--accent:${hex(s.theme.accent, "#ff5a1f")};--night:${hex(s.theme.dark, "#0e1512")};--paper:${hex(s.theme.paper, "#f4f1ea")};--radius:${Math.max(0, Math.min(60, Number(s.theme.radius) || 28))}px}`;
+  const preset = PRESETS[s.theme.preset] ? s.theme.preset : "postcard";
+  const P = PRESETS[preset];
+  const paper = hex(s.theme.paper, P.paper);
+  const accent = hex(s.theme.accent, P.accent);
+  const night = hex(s.theme.dark, P.dark);
+  const dark = isDark(paper);
+  const ink = dark ? "#E6F1EE" : "#0B0C14";
+  const fonts = PRESET_FONTS[preset];
+  // Inside dark sections, "paper" means light text and "ink" dark text.
+  const css = `:root{--accent:${accent};--night:${night};--paper:${paper};--ink:${ink};--sun:${P.sun};--on-accent:${onColor(accent)};--font-display:${fonts.display};--font-body:${fonts.body};--radius:${Math.max(0, Math.min(60, Number(s.theme.radius) || 0))}px;color-scheme:${dark ? "dark" : "light"}}
+.bg-night{--paper:#F1F1EC;--ink:#0B0C10;--color-paper:#F1F1EC;--color-ink:#0B0C10}`;
   const introScript = s.intro.enabled && s.intro.oncePerSession
     ? `try{if(sessionStorage.getItem("voyaj:intro")==="1"&&!/[?&]intro=1/.test(location.search))document.documentElement.dataset.introSeen="1"}catch(e){}`
     : "";
@@ -33,14 +44,16 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     <SiteProvider settings={s}>
       <style dangerouslySetInnerHTML={{ __html: css }} />
       {introScript && <script dangerouslySetInnerHTML={{ __html: introScript }} />}
-      <SmoothScroll />
-      <ScrollProgress />
-      <Intro />
-      <Navbar index={index} />
-      <main className="relative">{children}</main>
-      <Footer settings={s} />
-      <FloatingWhatsapp />
-      <Cursor />
+      <div data-preset={preset} data-scheme={dark ? "dark" : "light"} className="contents">
+        <SmoothScroll />
+        <ScrollProgress />
+        <Intro />
+        <Navbar index={index} />
+        <main className="relative">{children}</main>
+        <Footer settings={s} />
+        <FloatingWhatsapp />
+        <Cursor />
+      </div>
     </SiteProvider>
   );
 }

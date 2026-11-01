@@ -443,7 +443,7 @@ export function FaqList({ items, compact }: { items: Faq[]; compact?: boolean })
           <li key={f.id} className="border-b border-line">
             <button onClick={() => setOpen(isOpen ? null : f.id)} aria-expanded={isOpen} className="flex w-full items-center justify-between gap-6 py-6 text-left">
               <span className="text-lg font-medium tracking-[-0.02em] md:text-2xl">{f.question}</span>
-              <motion.span animate={{ rotate: isOpen ? 45 : 0 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-colors", isOpen ? "border-accent bg-accent text-white" : "border-line")}>
+              <motion.span animate={{ rotate: isOpen ? 45 : 0 }} transition={{ type: "spring", stiffness: 300, damping: 22 }} className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-colors", isOpen ? "border-accent bg-accent text-on-accent" : "border-line")}>
                 <Plus />
               </motion.span>
             </button>

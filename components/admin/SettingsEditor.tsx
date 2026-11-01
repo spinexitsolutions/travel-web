@@ -1,5 +1,6 @@
 "use client";
 
+import { PRESETS } from "@/lib/presets";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
@@ -155,6 +156,36 @@ export default function SettingsEditor({ initial }: { initial: SiteSettings }) {
             )}
 
             {tab === "theme" && (
+              <>
+              <Card>
+                <h3 className="font-semibold tracking-tight">Design preset</h3>
+                <p className="mb-4 mt-1 text-sm text-ink/55">Each preset is a different design: its own fonts, colours, shapes and homepage hero. Colours can still be fine-tuned below.</p>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {Object.values(PRESETS).map((p) => {
+                    const active = (s.theme.preset ?? "postcard") === p.key;
+                    return (
+                      <button
+                        key={p.key}
+                        onClick={() => patch("theme", { preset: p.key, accent: p.accent, dark: p.dark, paper: p.paper, radius: p.radius })}
+                        className={cn("overflow-hidden rounded-2xl border text-left transition", active ? "border-ink ring-2 ring-ink" : "border-line hover:border-ink/40")}
+                      >
+                        <div className="relative h-28 p-3" style={{ background: p.paper }}>
+                          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span className="text-3xl font-bold leading-none tracking-tight" style={{ color: p.accent, fontFamily: p.key === "postcard" ? "var(--font-bricolage)" : p.key === "horizon" ? "var(--font-unbounded)" : "var(--font-archivo)" }}>Aa</span>
+                            <span className="flex gap-1">{[p.accent, p.dark, p.paper].map((c) => <span key={c} className="h-4 w-4 rounded-full border border-black/10" style={{ background: c }} />)}</span>
+                          </div>
+                          {active && <span className="absolute right-3 top-3 rounded-full bg-ink px-2 py-0.5 text-[10px] font-medium text-white">Active</span>}
+                        </div>
+                        <div className="bg-white p-3">
+                          <p className="font-semibold">{p.label}</p>
+                          <p className="mt-0.5 text-xs text-ink/55">{p.description}</p>
+                          <p className="mt-2 font-mono text-[10px] uppercase text-ink/40">{p.fonts}</p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </Card>
               <Card>
                 <h3 className="mb-4 font-semibold tracking-tight">Colours & shape</h3>
                 <div className="grid gap-4 sm:grid-cols-3">
@@ -208,6 +239,7 @@ export default function SettingsEditor({ initial }: { initial: SiteSettings }) {
                   </div>
                 </div>
               </Card>
+              </>
             )}
 
             {tab === "intro" && (

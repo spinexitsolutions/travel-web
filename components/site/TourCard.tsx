@@ -33,9 +33,9 @@ export default function TourCard({ tour, className, priority }: { tour: Tour; cl
           </div>
           <div className="absolute left-3 top-3 flex gap-1.5">
             <span className="rounded-[5px] bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-ink">{tour.category}</span>
-            {tour.oldPrice && <span className="rounded-[5px] bg-accent px-2 py-1 font-mono text-[10px] uppercase text-white">−{Math.round((1 - tour.price / tour.oldPrice) * 100)}%</span>}
+            {tour.oldPrice && <span className="rounded-[5px] bg-accent px-2 py-1 font-mono text-[10px] uppercase text-on-accent">−{Math.round((1 - tour.price / tour.oldPrice) * 100)}%</span>}
           </div>
-          <span className="absolute bottom-3 right-3 grid h-11 w-11 translate-y-3 place-items-center rounded-full bg-accent text-lg text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <span className="absolute bottom-3 right-3 grid h-11 w-11 translate-y-3 place-items-center rounded-full bg-accent text-lg text-on-accent opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
             <ArrowUpRight />
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function TourCard({ tour, className, priority }: { tour: Tour; cl
         aria-label={wished ? "Remove from wishlist" : "Save to wishlist"}
         className={cn(
           "absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-md text-base transition-colors",
-          wished ? "bg-accent text-white" : "bg-paper/90 text-ink hover:bg-white",
+          wished ? "bg-accent text-on-accent" : "bg-paper/90 text-ink hover:bg-white",
         )}
       >
         <Heart filled={wished} />

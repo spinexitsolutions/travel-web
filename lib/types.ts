@@ -20,6 +20,7 @@ export interface SiteSettings {
     socials: { label: string; href: string }[];
   };
   theme: {
+    preset: import("./presets").PresetKey;
     accent: string;
     dark: string;
     paper: string;

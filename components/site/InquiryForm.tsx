@@ -105,13 +105,13 @@ export default function InquiryForm({ destinations, initialDestination = "" }: {
               {err && <p className="text-sm text-red-600">{err}</p>}
               <div className="flex gap-3 pt-2">
                 <button type="button" onClick={() => setStep(1)} className="rounded-md border border-line px-6 py-3.5 text-sm hover:border-ink">Back</button>
-                <button disabled={loading} className="flex items-center gap-2 rounded-md bg-accent px-7 py-3.5 text-sm font-medium text-white transition hover:brightness-110 disabled:opacity-50">{loading ? "Sending…" : "Send to a planner"} <ArrowRight /></button>
+                <button disabled={loading} className="flex items-center gap-2 rounded-md bg-accent px-7 py-3.5 text-sm font-medium text-on-accent transition hover:brightness-110 disabled:opacity-50">{loading ? "Sending…" : "Send to a planner"} <ArrowRight /></button>
               </div>
             </motion.div>
           )}
           {step === 3 && (
             <motion.div key="3" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease }} className="py-10 text-center">
-              <motion.span initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 260, damping: 15, delay: 0.15 }} className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-accent text-4xl text-white"><Check /></motion.span>
+              <motion.span initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 260, damping: 15, delay: 0.15 }} className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-accent text-4xl text-on-accent"><Check /></motion.span>
               <p className="hl mt-6 text-5xl">Thank you, {f.name.split(" ")[0]}.</p>
               <p className="mx-auto mt-3 max-w-sm text-mute">A planner who knows {f.destination || "the world"} well will write to you within a few hours.</p>
             </motion.div>

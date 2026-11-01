@@ -166,7 +166,7 @@ export default function TourDetail({ tour, destination, related, reviews }: { to
         <aside id="book" className="lg:sticky lg:top-24 lg:self-start">
           <BookingCard tour={tour} />
           <div className="mt-3 flex gap-2">
-            <button onClick={() => toggleWish(tour.slug)} className={cn("flex flex-1 items-center justify-center gap-2 rounded-full border py-3 text-sm transition", wished ? "border-accent bg-accent text-white" : "border-line hover:border-ink")}>
+            <button onClick={() => toggleWish(tour.slug)} className={cn("flex flex-1 items-center justify-center gap-2 rounded-full border py-3 text-sm transition", wished ? "border-accent bg-accent text-on-accent" : "border-line hover:border-ink")}>
               <Heart filled={wished} /> {wished ? "Saved" : "Save"}
             </button>
             <a href={`https://wa.me/${settings.brand.whatsapp}?text=${encodeURIComponent(`Hi! I'm interested in "${tour.title}".`)}`} target="_blank" rel="noreferrer" className="flex flex-1 items-center justify-center gap-2 rounded-md border border-line py-3 text-sm transition hover:border-[#25D366] hover:bg-[#25D366] hover:text-white">
@@ -243,7 +243,7 @@ function BookingCard({ tour }: { tour: Tour }) {
             <p className="eyebrow mt-7 text-paper/50">Departure</p>
             <div className="mt-3 grid grid-cols-2 gap-2">
               {upcoming.slice(0, 4).map((d) => (
-                <button key={d} onClick={() => { setDate(d); setCustom(false); }} className={cn("rounded-2xl border px-3 py-2.5 text-left text-sm transition", date === d && !custom ? "border-accent bg-accent text-white" : "border-white/15 hover:border-white/40")}>
+                <button key={d} onClick={() => { setDate(d); setCustom(false); }} className={cn("rounded-2xl border px-3 py-2.5 text-left text-sm transition", date === d && !custom ? "border-accent bg-accent text-on-accent" : "border-white/15 hover:border-white/40")}>
                   {fmtDate(d, { day: "numeric", month: "short", year: "numeric" })}
                 </button>
               ))}
@@ -264,7 +264,7 @@ function BookingCard({ tour }: { tour: Tour }) {
               <span className="text-paper/60">Total</span>
               <motion.span key={total} initial={{ y: -8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-2xl font-medium tabular-nums">{money(total)}</motion.span>
             </div>
-            <button disabled={!date} onClick={() => setStep(1)} className="group mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-accent py-4 font-medium text-white transition hover:brightness-110 disabled:opacity-40">
+            <button disabled={!date} onClick={() => setStep(1)} className="group mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-accent py-4 font-medium text-on-accent transition hover:brightness-110 disabled:opacity-40">
               Reserve — pay 20% later <ArrowRight className="transition-transform group-hover:translate-x-1" />
             </button>
             <p className="mt-3 text-center text-xs text-paper/40">No payment now · Free changes up to 60 days</p>
@@ -279,12 +279,12 @@ function BookingCard({ tour }: { tour: Tour }) {
             <input placeholder="Phone / WhatsApp" className={input} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             <textarea placeholder="Anything we should know? (optional)" rows={3} className={input} value={form.requests} onChange={(e) => setForm({ ...form, requests: e.target.value })} />
             {err && <p className="text-sm text-red-400">{err}</p>}
-            <button disabled={loading} className="w-full rounded-md bg-accent py-4 font-medium text-white transition hover:brightness-110 disabled:opacity-50">{loading ? "Reserving…" : "Confirm reservation"}</button>
+            <button disabled={loading} className="w-full rounded-md bg-accent py-4 font-medium text-on-accent transition hover:brightness-110 disabled:opacity-50">{loading ? "Reserving…" : "Confirm reservation"}</button>
           </motion.form>
         )}
         {step === 2 && (
           <motion.div key="s2" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease }} className="py-6 text-center">
-            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }} className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent text-3xl text-white"><Check /></motion.span>
+            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }} className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent text-3xl text-on-accent"><Check /></motion.span>
             <p className="hl mt-5 text-4xl">You’re going.</p>
             <p className="mt-2 text-paper/60">Reservation <b className="font-mono text-paper">{ref}</b> received. Your planner will write within a few hours.</p>
             <button onClick={() => { setStep(0); setForm({ name: "", email: "", phone: "", requests: "" }); }} className="mt-6 text-sm text-paper/60 underline">Make another</button>

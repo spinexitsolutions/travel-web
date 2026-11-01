@@ -93,7 +93,7 @@ export default function Navbar({ index }: { index: SpotItem[] }) {
         <div className={cn("transition-[background-color,border-color] duration-500", top ? "border-b border-transparent bg-paper/0" : "border-b border-line bg-paper/85 backdrop-blur-xl")}>
           <nav aria-label="Primary" className="flex h-14 items-center gap-4 px-4 md:h-16 md:px-[4vw]">
             <Link href="/" className="group flex items-center gap-2.5" aria-label={`${settings.brand.name} home`}>
-              <span className="grid h-7 w-7 place-items-center rounded-[6px] bg-accent text-[13px] font-bold text-white transition-transform duration-500 group-hover:rotate-90">
+              <span className="grid h-7 w-7 place-items-center rounded-[6px] bg-accent text-[13px] font-bold text-on-accent transition-transform duration-500 group-hover:rotate-90">
                 {settings.brand.logoMark}
               </span>
               <span className="wide text-[17px] font-semibold uppercase tracking-[-0.02em]">{settings.brand.name}</span>
@@ -124,13 +124,13 @@ export default function Navbar({ index }: { index: SpotItem[] }) {
                 <Heart />
                 <AnimatePresence>
                   {wishlist.length > 0 && (
-                    <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-md bg-accent px-1 text-[9px] font-semibold text-white">
+                    <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} className="absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-md bg-accent px-1 text-[9px] font-semibold text-on-accent">
                       {wishlist.length}
                     </motion.span>
                   )}
                 </AnimatePresence>
               </Link>
-              <Link href="/contact" className="ml-1 hidden h-10 items-center gap-2 rounded-md bg-accent px-4 text-[13px] font-medium text-white transition hover:bg-ink sm:flex">
+              <Link href="/contact" className="ml-1 hidden h-10 items-center gap-2 rounded-md bg-accent px-4 text-[13px] font-medium text-on-accent transition hover:bg-ink sm:flex">
                 Plan a trip <ArrowUpRight />
               </Link>
               <button
@@ -154,7 +154,7 @@ export default function Navbar({ index }: { index: SpotItem[] }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[85] flex flex-col overflow-hidden bg-accent text-white"
+            className={cn("fixed inset-0 z-[85] flex flex-col overflow-hidden text-white", settings.theme.preset === "horizon" ? "bg-night" : "bg-accent")}
             initial={{ clipPath: "circle(0% at calc(100% - 48px) 28px)" }}
             animate={{ clipPath: "circle(150% at calc(100% - 48px) 28px)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 48px) 28px)" }}

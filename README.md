@@ -15,6 +15,18 @@ npm run dev
 
 Copy `.env.example` to `.env.local` and set `ADMIN_PASSWORD` and `ADMIN_SECRET` before deploying.
 
+## Design presets (Admin → Settings → Theme)
+
+Three complete design directions — each with its own type pairing, palette, shape language and homepage hero. Switch with one click; colours remain editable.
+
+| Preset | Fonts | Palette | Hero |
+| --- | --- | --- | --- |
+| **Postcard** (default) | Bricolage Grotesque + Instrument Sans | sand · jade · peach | A shuffling, draggable stack of postcards with stamps and postmarks, plus an "address line" search |
+| **Horizon** | Unbounded + Manrope | dark ocean · aqua glow | The destination name set huge, with the photo inside the letters; scroll to fly through the type |
+| **Window Seat** | Archivo (width axis) | paper · Klein blue | An aircraft-window slideshow that opens to full screen on scroll, a split-flap board and a boarding-pass search |
+
+Text and button colours adjust automatically for dark or light backgrounds and accents.
+
 ## Website features
 
 - **Design system**: a single variable sans-serif (Archivo, with a width axis) for both condensed headlines and expanded accent words; Klein-blue accent; grid lines and boarding-pass details. Includes **page transitions**.

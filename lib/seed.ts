@@ -157,7 +157,7 @@ export function createSeed(): DB {
           { label: "Pinterest", href: "https://pinterest.com" },
         ],
       },
-      theme: { accent: "#2B3DFF", dark: "#0B0C14", paper: "#F1EFEA", radius: 14 },
+      theme: { preset: "postcard", accent: "#0F6E5B", dark: "#1D2B26", paper: "#F4ECE0", radius: 6 },
       intro: {
         enabled: true,
         oncePerSession: true,

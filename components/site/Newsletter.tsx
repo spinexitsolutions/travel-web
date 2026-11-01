@@ -32,7 +32,7 @@ export default function Newsletter({ dark }: { dark?: boolean }) {
         />
         <button
           disabled={state === "loading"}
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent text-white transition hover:scale-105 disabled:opacity-60"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent text-on-accent transition hover:scale-105 disabled:opacity-60"
           aria-label="Subscribe"
         >
           <AnimatePresence mode="wait" initial={false}>

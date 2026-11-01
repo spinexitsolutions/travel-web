@@ -10,7 +10,7 @@
   --color-card: var(--card);
   --color-sun: var(--sun);
 
-  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --font-sans: var(--font-body, var(--font-archivo)), ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
   --font-mono: var(--font-mono-jb), ui-monospace, monospace;
 
   --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
@@ -174,3 +174,80 @@ html[data-intro-seen="1"] .intro-layer { display: none; }
 .menu-link { font-variation-settings: "wdth" 72; }
 .group:hover .menu-link { font-variation-settings: "wdth" 125; font-weight: 300; letter-spacing: -0.05em; }
 .group:hover .stretch-link { font-variation-settings: "wdth" 118; }
+
+.text-on-accent { color: var(--on-accent); }
+
+/* ───────────── Preset: Postcard ───────────── */
+[data-preset="postcard"] .display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 100%;
+  font-variation-settings: "wdth" 100, "opsz" 96;
+  text-transform: none;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
+[data-preset="postcard"] .hl {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-variation-settings: "wdth" 75, "opsz" 96;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  background: linear-gradient(transparent 58%, var(--sun) 58%, var(--sun) 90%, transparent 90%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 .06em;
+}
+[data-preset="postcard"] .wide, [data-preset="postcard"] .narrow { font-family: var(--font-display); font-variation-settings: "wdth" 100; }
+[data-preset="postcard"] .menu-link { font-variation-settings: "wdth" 100; }
+[data-preset="postcard"] .group:hover .menu-link { font-variation-settings: "wdth" 75; font-weight: 800; letter-spacing: -0.03em; }
+[data-preset="postcard"] .eyebrow::before { content: "✦ "; color: var(--accent); opacity: 1; }
+[data-preset="postcard"] .eyebrow::after { content: ""; }
+[data-preset="postcard"] body, [data-preset="postcard"] { --line: color-mix(in oklab, #3a2a1a 14%, transparent); }
+
+/* Perforated postage-stamp edge */
+.stamp {
+  padding: 6px;
+  background: #fff;
+  -webkit-mask: radial-gradient(circle 3.4px at center, #0000 96%, #000) -5px -5px / 10px 10px round, linear-gradient(#000 0 0) content-box;
+  mask: radial-gradient(circle 3.4px at center, #0000 96%, #000) -5px -5px / 10px 10px round, linear-gradient(#000 0 0) content-box;
+}
+.dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--ink) 16%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* ───────────── Preset: Horizon (dark) ───────────── */
+[data-preset="horizon"] .display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-stretch: 100%;
+  font-variation-settings: normal;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+}
+[data-preset="horizon"] .hl {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-stretch: 100%;
+  font-variation-settings: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--accent);
+  letter-spacing: -0.03em;
+}
+[data-preset="horizon"] .wide, [data-preset="horizon"] .narrow { font-family: var(--font-display); font-variation-settings: normal; }
+[data-preset="horizon"] .menu-link { font-variation-settings: normal; transition: color .5s, -webkit-text-stroke .5s, letter-spacing .7s; }
+[data-preset="horizon"] .group:hover .menu-link { color: transparent; -webkit-text-stroke: 1.5px currentColor; letter-spacing: .02em; font-weight: 600; }
+[data-preset="horizon"] .eyebrow::before { content: "◦ "; color: var(--accent); opacity: 1; }
+[data-preset="horizon"] .eyebrow::after { content: ""; }
+[data-scheme="dark"] .bg-white { background-color: color-mix(in oklab, var(--paper) 86%, white 8%); }
+[data-scheme="dark"] .bg-white\/70, [data-scheme="dark"] .bg-white\/50 { background-color: color-mix(in oklab, var(--paper) 80%, white 10%); }
+[data-scheme="dark"] .glass { border-color: rgb(255 255 255 / .08); }
+[data-scheme="dark"] .shadow-glow { box-shadow: 0 0 60px -10px var(--accent); }
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 24px 2px var(--accent);
+}

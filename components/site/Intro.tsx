@@ -81,7 +81,7 @@ export default function Intro() {
 
   return (
     <motion.div
-      className="intro-layer fixed inset-0 z-[100] overflow-hidden bg-accent text-white"
+      className={`intro-layer fixed inset-0 z-[100] overflow-hidden text-white ${settings.theme.preset === "horizon" ? "bg-night" : "bg-accent"}`}
       initial={{ clipPath: "inset(0% 0% 0% 0%)" }}
       animate={phase === "exit" ? { clipPath: "inset(0% 0% 100% 0%)" } : { clipPath: "inset(0% 0% 0% 0%)" }}
       transition={{ duration: 1, ease }}

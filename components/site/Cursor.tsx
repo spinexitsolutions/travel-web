@@ -27,7 +27,7 @@ export default function Cursor() {
   if (!enabled) return null;
   return (
     <motion.div
-      className="pointer-events-none fixed left-0 top-0 z-[95] grid place-items-center rounded-full bg-accent text-[11px] font-medium uppercase tracking-wider text-white"
+      className="pointer-events-none fixed left-0 top-0 z-[95] grid place-items-center rounded-full bg-accent text-[11px] font-medium uppercase tracking-wider text-on-accent"
       style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
       animate={{ width: label ? 88 : 0, height: label ? 88 : 0, opacity: label ? 1 : 0 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}

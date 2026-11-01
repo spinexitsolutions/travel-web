@@ -126,7 +126,7 @@ export default function Hero({ destinations }: { destinations: string[] }) {
               </motion.h2>
             </AnimatePresence>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Link href="/tours" className="group flex items-center gap-3 rounded-md bg-accent px-5 py-3.5 text-sm font-medium text-white transition hover:bg-white hover:text-ink">
+              <Link href="/tours" className="group flex items-center gap-3 rounded-md bg-accent px-5 py-3.5 text-sm font-medium text-on-accent transition hover:bg-white hover:text-ink">
                 Explore journeys <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href="/contact" className="rounded-md border border-white/40 px-5 py-3.5 text-sm transition hover:bg-white hover:text-ink">
@@ -274,7 +274,7 @@ function BoardingPass({ destinations }: { destinations: string[] }) {
           <button type="button" onClick={() => setPax((p) => Math.min(20, p + 1))} className="grid h-5 w-5 place-items-center rounded bg-ink/10 text-xs" aria-label="More">+</button>
         </span>
       </div>
-      <button className="group relative flex shrink-0 items-center gap-2 bg-accent px-5 text-sm font-medium text-white transition-colors hover:bg-ink md:px-6">
+      <button className="group relative flex shrink-0 items-center gap-2 bg-accent px-5 text-sm font-medium text-on-accent transition-colors hover:bg-ink md:px-6">
         <span className="absolute -top-2 left-0 h-4 w-4 -translate-x-1/2 rounded-full bg-paper" />
         <span className="absolute -bottom-2 left-0 h-4 w-4 -translate-x-1/2 rounded-full bg-paper" />
         <Search className="text-base" />
