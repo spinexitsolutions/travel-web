@@ -1,0 +1,67 @@
+# Voyaj — Travel & Tourism website + Admin (CMS · CRM)
+
+A design-led travel agency website built with **Next.js 16 (App Router)**, **Tailwind CSS v4**, **Motion** and **Lenis** smooth scrolling. It includes a full admin panel, so the whole site can be managed without touching code.
+
+## Quick start
+
+```bash
+npm install
+npm run dev
+```
+
+- Website: http://localhost:3000
+- Admin: http://localhost:3000/admin (default password `admin123`)
+- Replay the intro animation: http://localhost:3000/?intro=1
+
+Copy `.env.example` to `.env.local` and set `ADMIN_PASSWORD` and `ADMIN_SECRET` before deploying.
+
+## Website features
+
+- **Intro animation**: a counter, a framed destination slideshow and changing words, then the frame expands to full screen and lifts into the hero. You can set it all from the admin panel: on/off, play once per session, duration, words, images and tagline.
+- **"Island" navbar**: a glass capsule that changes shape.
+  - On mobile it sits at the bottom, where your thumb reaches, and opens upward into a menu sheet.
+  - On desktop it sits at the top, shrinks when you scroll, and opens into a panel with live image previews.
+  - It also has a live clock, a wishlist counter and a ⌘K **Spotlight search**.
+- **Hero**: a slideshow with a slow zoom, a word-by-word headline reveal, the image shrinking into a card as you scroll, and a search bar for where, when and how many guests.
+- **Scroll effects**:
+  - The manifesto text fills in word by word as you scroll.
+  - The destinations rail is pinned and scrolls sideways.
+  - The "How it works" steps stay in place while you scroll.
+  - Parallax stats with numbers that count up.
+  - A closing call-to-action image that grows as you scroll in.
+- **Journeys**: filtering by category, length, departure month and price, plus search and sort.
+- **Journey detail page**: photo gallery with a full-screen viewer, day-by-day itinerary, what's included and excluded, reviews, related journeys, and a **3-step booking widget** that creates bookings in the CRM.
+- **Other pages**:
+  - Destinations: grid with a region filter, plus a detail page for each destination.
+  - Journal (blog): list and article pages.
+  - About.
+  - Contact: a 3-step trip enquiry form that creates leads in the CRM.
+  - Wishlist: saved journeys, stored in the browser.
+  - A custom 404 page.
+- **Extras**: newsletter sign-up, floating WhatsApp button, custom cursor on desktop, scroll progress bar, announcement bar, SEO metadata. The design is mobile-first and respects the reduced-motion setting.
+
+## Admin panel (`/admin`)
+
+- **Dashboard**: revenue, bookings, open leads, conversion rate and subscribers; a 6-month revenue chart; the lead pipeline; recent activity; top journeys.
+- **CRM**:
+  - Leads: kanban board with drag-and-drop or a list view, notes, deal value, quick Email/Call/WhatsApp buttons, CSV export.
+  - Bookings: status changes, filters, CSV export.
+  - Customers: one view per person with lifetime value and tiers.
+  - Subscribers.
+- **CMS**: journeys (with itinerary, gallery and departure dates), destinations, journal posts, experiences, testimonials, FAQs.
+- **Site settings**:
+  - Brand and contact details.
+  - Theme: accent, dark and paper colours, plus corner radius.
+  - Intro animation and hero.
+  - Announcement bar and navigation links.
+  - Homepage section on/off switches.
+  - Manifesto, stats and SEO.
+  - Reset to demo data.
+
+## Data
+
+The data is stored in `lib/db.ts`, a small JSON-file database (`data/db.json`). It is created from the demo content in `lib/seed.ts` the first time the site runs.
+
+On read-only or serverless hosts (for example Vercel), changes are kept in memory only and are lost when the server restarts. For production, replace `lib/db.ts` with Postgres, Supabase or MongoDB. The rest of the app only uses the functions exported from that file.
+
+Images come from Unsplash. You can use any image URL in the admin panel.
