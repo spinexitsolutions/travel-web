@@ -277,6 +277,27 @@ export default function SettingsEditor({ initial }: { initial: SiteSettings }) {
             {tab === "hero" && (
               <>
                 <Card>
+                  <h3 className="font-semibold tracking-tight">Hero layout</h3>
+                  <p className="mb-4 mt-1 text-sm text-ink/55">Choose how the homepage opens. Cinematic uses your featured destinations.</p>
+                  <div className="grid gap-2 sm:grid-cols-4">
+                    {([
+                      ["cinematic", "Cinematic", "Full-bleed shutter slideshow, destination rail, glass search"],
+                      ["stack", "Postcard stack", "Draggable, shuffling postcards with stamps"],
+                      ["mask", "Text mask", "Photo inside giant letters, fly-through on scroll"],
+                      ["window", "Window seat", "Aircraft window that opens to full screen"],
+                    ] as const).map(([k, l, d]) => (
+                      <button
+                        key={k}
+                        onClick={() => patch("hero", { layout: k })}
+                        className={cn("rounded-2xl border p-3 text-left transition", (s.hero.layout ?? "cinematic") === k ? "border-ink bg-ink text-white" : "border-line bg-white hover:border-ink/40")}
+                      >
+                        <p className="text-sm font-semibold">{l}</p>
+                        <p className={cn("mt-1 text-xs", (s.hero.layout ?? "cinematic") === k ? "text-white/60" : "text-ink/55")}>{d}</p>
+                      </button>
+                    ))}
+                  </div>
+                </Card>
+                <Card>
                   <h3 className="mb-4 font-semibold tracking-tight">Headline</h3>
                   <div className="grid gap-4 sm:grid-cols-3">
                     <Field label="Eyebrow" className="sm:col-span-3"><Input value={s.hero.eyebrow} onChange={(e) => patch("hero", { eyebrow: e.target.value })} /></Field>

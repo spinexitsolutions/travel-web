@@ -3,6 +3,7 @@ import { IMG } from "@/lib/seed";
 import Hero from "@/components/site/home/Hero";
 import HeroPostcard from "@/components/site/home/HeroPostcard";
 import HeroHorizon from "@/components/site/home/HeroHorizon";
+import HeroCinematic, { type CineSlide } from "@/components/site/home/HeroCinematic";
 import {
   ClosingCta,
   DestinationsRail,
@@ -27,15 +28,31 @@ export default async function Home() {
   const featured = [...tours].sort((a, b) => Number(b.featured) - Number(a.featured));
   const featuredDest = db.destinations.filter((d) => d.featured);
   const destNames = db.destinations.map((d) => d.name);
+  const layout = s.hero.layout ?? "cinematic";
+  const cineSource = featuredDest.length ? featuredDest : db.destinations;
+  const cine: CineSlide[] = cineSource.slice(0, 6).map((d) => {
+    const tour = tours.find((t) => t.destinationSlug === d.slug);
+    return {
+      image: d.image,
+      name: d.name,
+      country: d.country,
+      tagline: d.tagline,
+      bestTime: d.bestTime,
+      price: tour?.price ?? d.startingPrice,
+      href: tour ? `/tours/${tour.slug}` : `/destinations/${d.slug}`,
+    };
+  });
 
   return (
     <>
-      {s.theme.preset === "horizon" ? (
+      {layout === "mask" ? (
         <HeroHorizon destinations={destNames} />
-      ) : s.theme.preset === "voyage" ? (
+      ) : layout === "window" ? (
         <Hero destinations={destNames} />
-      ) : (
+      ) : layout === "stack" ? (
         <HeroPostcard destinations={destNames} />
+      ) : (
+        <HeroCinematic slides={cine} destinations={destNames} />
       )}
       {on.marquee && <PlacesMarquee items={db.destinations.map((d) => ({ name: d.name, image: d.image }))} />}
       {on.manifesto && <Manifesto text={s.manifesto} images={[IMG.alley, IMG.santorini]} />}

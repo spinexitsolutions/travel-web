@@ -25,6 +25,8 @@ Three complete design directions — each with its own type pairing, palette, sh
 | **Horizon** | Unbounded + Manrope | dark ocean · aqua glow | The destination name set huge, with the photo inside the letters; scroll to fly through the type |
 | **Window Seat** | Archivo (width axis) | paper · Klein blue | An aircraft-window slideshow that opens to full screen on scroll, a split-flap board and a boarding-pass search |
 
+**Hero layout** is chosen separately (Admin → Settings → Hero): **Cinematic** (default — full-bleed photos that change with a staggered "shutter" of vertical slices, a large letter-by-letter destination name, a destination list with progress bars, mouse parallax and a frosted-glass search bar), **Postcard stack**, **Text mask** or **Window seat**.
+
 Text and button colours adjust automatically for dark or light backgrounds and accents.
 
 ## Website features

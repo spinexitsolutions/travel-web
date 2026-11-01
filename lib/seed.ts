@@ -167,6 +167,7 @@ export function createSeed(): DB {
         tagline: "Please keep your window shade up.",
       },
       hero: {
+        layout: "cinematic",
         eyebrow: "Independent travel studio · Mumbai · Est. 2014",
         titleTop: "Leave the",
         titleAccent: "ordinary",

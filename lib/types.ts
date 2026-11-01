@@ -35,6 +35,7 @@ export interface SiteSettings {
     tagline: string;
   };
   hero: {
+    layout: "cinematic" | "stack" | "mask" | "window";
     eyebrow: string;
     titleTop: string;
     titleAccent: string;

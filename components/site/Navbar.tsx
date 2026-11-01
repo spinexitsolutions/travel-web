@@ -67,6 +67,8 @@ export default function Navbar({ index }: { index: SpotItem[] }) {
     else window.__lenis?.start();
   }, [open]);
 
+  // light-on-photo nav while sitting over the full-bleed cinematic hero
+  const overlay = top && pathname === "/" && (settings.hero.layout ?? "cinematic") === "cinematic";
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
@@ -90,7 +92,10 @@ export default function Navbar({ index }: { index: SpotItem[] }) {
           )}
         </AnimatePresence>
 
-        <div className={cn("transition-[background-color,border-color] duration-500", top ? "border-b border-transparent bg-paper/0" : "border-b border-line bg-paper/85 backdrop-blur-xl")}>
+        <div
+          className={cn("text-ink transition-[background-color,border-color,color] duration-500", top ? "border-b border-transparent bg-paper/0" : "border-b border-line bg-paper/85 backdrop-blur-xl")}
+          style={overlay ? ({ "--color-ink": "#ffffff", "--color-paper": "#0b0c10", "--color-mute": "rgba(255,255,255,.65)", "--color-line": "rgba(255,255,255,.25)" } as React.CSSProperties) : undefined}
+        >
           <nav aria-label="Primary" className="flex h-14 items-center gap-4 px-4 md:h-16 md:px-[4vw]">
             <Link href="/" className="group flex items-center gap-2.5" aria-label={`${settings.brand.name} home`}>
               <span className="grid h-7 w-7 place-items-center rounded-[6px] bg-accent text-[13px] font-bold text-on-accent transition-transform duration-500 group-hover:rotate-90">
