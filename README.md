@@ -36,12 +36,17 @@ Text and button colours adjust automatically for dark or light backgrounds and a
 - **Navbar**: an editorial top bar that hides when you scroll down and comes back when you scroll up. The Menu button opens a full-screen accent-colour menu with a circular reveal; links stretch along the font width axis on hover, with image previews.
 - **"Window seat" hero**: poster-style headline next to an aircraft-window slideshow, a split-flap "Now boarding" board, and a boarding-pass search. As you scroll, the window opens to full screen ("Now arriving").
 - **Spotlight search** (⌘K), live clock and wishlist counter in the navbar.
-- **Scroll effects**:
-  - The manifesto text fills in word by word as you scroll.
-  - The destinations rail is pinned and scrolls sideways.
-  - The "How it works" steps stay in place while you scroll.
-  - Parallax stats with numbers that count up.
-  - A closing call-to-action image that grows as you scroll in.
+- **Signature homepage sections**:
+  - **Velocity marquee**: two rows of destination names (solid and outline) whose speed, direction and slant follow how fast you scroll.
+  - **Manifesto**: text fills in word by word, with photos drifting past at different speeds.
+  - **Destinations rail**: pinned and scrolls sideways, with the photos moving inside each card.
+  - **Journey index**: an editorial list. The row under your cursor fills with the accent colour, and a photo of that journey follows the cursor.
+  - **Ways to travel**: full-screen experience cards that stack on top of each other as you scroll.
+  - **Globe**: a rotating, draggable dotted globe drawn on a canvas, with glowing flight routes from Mumbai to every destination, next to counting stats.
+  - **How it works**: a flight path draws itself as you scroll, a plane flies along it, and each step's card appears as the plane reaches it.
+  - **Review wall**: two rows of review cards moving in opposite directions, plus a rating summary.
+  - **Journal**: a bento layout with one large story and smaller ones beside it.
+  - **Closing call-to-action**: an image that grows as you scroll in.
 - **Journeys**: filtering by category, length, departure month and price, plus search and sort.
 - **Journey detail page**: photo gallery with a full-screen viewer, day-by-day itinerary, what's included and excluded, reviews, related journeys, and a **3-step booking widget** that creates bookings in the CRM.
 - **Other pages**:

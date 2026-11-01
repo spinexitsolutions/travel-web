@@ -96,6 +96,7 @@ export function DestinationsRail({ items }: { items: Destination[] }) {
   const x = useTransform(scrollYProgress, [0, 1], [0, -dist]);
   const sx = useSpring(x, { stiffness: 120, damping: 30, mass: 0.4 });
   const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const imgX = useTransform(scrollYProgress, [0, 1], ["-9%", "9%"]);
 
   useLayoutEffect(() => {
     const measure = () => {
@@ -131,7 +132,9 @@ export function DestinationsRail({ items }: { items: Destination[] }) {
               data-cursor="Explore"
               className="group relative h-[58svh] w-[72vw] shrink-0 overflow-hidden r-xl sm:w-[46vw] md:h-[60vh] md:w-[30vw] lg:w-[24vw]"
             >
-              <Img src={d.image} w={900} alt={d.name} className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-110" />
+              <motion.div style={{ x: imgX }} className="absolute inset-[0_-12%]">
+                <Img src={d.image} w={900} alt={d.name} className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-110" />
+              </motion.div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <span className="absolute left-5 top-5 font-mono text-xs text-white/70">{String(k + 1).padStart(2, "0")}</span>
               <span className="glass absolute right-4 top-4 rounded-full px-3 py-1 text-[11px] text-ink">{d.bestTime}</span>

@@ -3,19 +3,12 @@ import { IMG } from "@/lib/seed";
 import Hero from "@/components/site/home/Hero";
 import HeroPostcard from "@/components/site/home/HeroPostcard";
 import HeroHorizon from "@/components/site/home/HeroHorizon";
+import { FlightPath, GlobeStats, JourneyIndex, JournalBento, ManifestoFloat, ReviewWall, StackedExperiences, VelocityMarquee } from "@/components/site/home/Signature";
 import HeroCinematic, { type CineSlide } from "@/components/site/home/HeroCinematic";
 import {
   ClosingCta,
   DestinationsRail,
-  Experiences,
   FaqSection,
-  FeaturedTours,
-  Journal,
-  Manifesto,
-  PlacesMarquee,
-  Process,
-  Stats,
-  Testimonials,
 } from "@/components/site/home/Sections";
 
 export const dynamic = "force-dynamic";
@@ -54,15 +47,15 @@ export default async function Home() {
       ) : (
         <HeroCinematic slides={cine} destinations={destNames} />
       )}
-      {on.marquee && <PlacesMarquee items={db.destinations.map((d) => ({ name: d.name, image: d.image }))} />}
-      {on.manifesto && <Manifesto text={s.manifesto} images={[IMG.alley, IMG.santorini]} />}
+      {on.marquee && <VelocityMarquee items={db.destinations.slice(0, 8).map((d) => ({ name: d.name, image: d.image }))} />}
+      {on.manifesto && <ManifestoFloat text={s.manifesto} images={[IMG.alley, IMG.tent, IMG.scuba, IMG.aerialBoats]} />}
       {on.destinations && <DestinationsRail items={featuredDest.length ? featuredDest : db.destinations} />}
-      {on.tours && <FeaturedTours tours={featured} />}
-      {on.experiences && <Experiences items={db.experiences} />}
-      {on.stats && <Stats stats={s.stats} image={IMG.aboveClouds} />}
-      {on.process && <Process images={{ flatlay: IMG.flatlay, alley: IMG.alley, airport: IMG.airport, santorini: IMG.aerialBoats }} />}
-      {on.testimonials && <Testimonials items={db.testimonials} />}
-      {on.journal && <Journal posts={db.posts.filter((p) => p.published)} />}
+      {on.tours && <JourneyIndex tours={featured} destinations={db.destinations} />}
+      {on.experiences && <StackedExperiences items={db.experiences} />}
+      {on.stats && <GlobeStats stats={s.stats} destinations={db.destinations} />}
+      {on.process && <FlightPath />}
+      {on.testimonials && <ReviewWall items={db.testimonials} />}
+      {on.journal && <JournalBento posts={db.posts.filter((p) => p.published)} />}
       {on.faq && <FaqSection items={db.faqs} />}
       {on.newsletter && <ClosingCta image={IMG.backpackLake} />}
     </>
